@@ -30,12 +30,25 @@ from pathlib import Path
 from src.database.models import Candidate, Recruiter, Interview  
 from src.email_service import send_interview_email
 from src.security import hash_password
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI(
     title="AI Resume Screening API",
     version="2.0.0"
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 BASE_DIR = Path(__file__).resolve().parent
 

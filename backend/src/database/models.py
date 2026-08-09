@@ -69,11 +69,6 @@ class Recruiter(Base):
 
     password = sqlalchemy.Column(sqlalchemy.String)
 
-    created_at = sqlalchemy.Column(
-        sqlalchemy.DateTime,
-        default=datetime.datetime.utcnow
-    )
-
 class Interview(Base):
 
     __tablename__ = "interviews"
