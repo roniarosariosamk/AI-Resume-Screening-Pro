@@ -1,8 +1,21 @@
-import { Bell, UserCircle } from "lucide-react";
+import { Bell, UserCircle, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Topbar() {
 
+    const navigate = useNavigate();
+
     const email = localStorage.getItem("userEmail");
+
+    const handleLogout = () => {
+
+        // Remove authentication data
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+
+        // Redirect to login
+        navigate("/login");
+    };
 
     return (
 
@@ -13,15 +26,11 @@ function Topbar() {
             <div>
 
                 <h2 className="text-2xl font-bold text-white">
-
                     Welcome Recruiter 👋
-
                 </h2>
 
                 <p className="text-gray-400">
-
                     {email}
-
                 </p>
 
             </div>
@@ -40,12 +49,19 @@ function Topbar() {
                     size={38}
                 />
 
+                <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-all"
+                >
+                    <LogOut size={18} />
+                    Logout
+                </button>
+
             </div>
 
         </div>
 
     );
-
 }
 
 export default Topbar;
