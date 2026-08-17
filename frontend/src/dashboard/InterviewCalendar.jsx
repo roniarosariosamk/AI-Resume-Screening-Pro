@@ -266,15 +266,29 @@ function InterviewCalendar({ onEditInterview}) {
                                     <div className="flex justify-end gap-2 mt-4">
                                         
 
-                                        <button
-                                            onClick={() => onEditInterview(interview)}
+                                       <button
+                                            onClick={() => {
+                                                setEditingInterview(item);
+
+                                                setEditData({
+                                                    interview_date: item.date || "",
+                                                    interview_time: item.time || "",
+                                                    interviewer: item.interviewer || "",
+                                                    interview_type: item.type || "",
+                                                    round: item.round || "",
+                                                    meeting_link: item.meeting_link || "",
+                                                    notes: item.notes || ""
+                                                });
+
+                                                setShowEditModal(true);
+                                            }}
                                             className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-all"
-                                       >
+                                        >
                                             ✏️ Reschedule
                                         </button>
 
                                         <button
-                                            onClick={() => handleDeleteInterview(interview.id)}
+                                            onClick={() => handleDeleteInterview(item.id)}
                                             className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-all"
                                 >
                                             ❌ Cancel

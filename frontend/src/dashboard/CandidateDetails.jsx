@@ -302,9 +302,22 @@ function CandidateDetails() {
 
                             </option>
 
+                            <option value="Interview">
+
+                                Interview 
+
+                            </option>
+
                             <option value="Rejected">
 
                                 Rejected
+
+                            </option>
+
+
+                            <option value="Hired">
+
+                                Hired
 
                             </option>
 

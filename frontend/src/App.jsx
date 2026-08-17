@@ -5,6 +5,7 @@ import Features from "./components/Features";
 import Navbar from "./components/Navbar";
 import Stats from "./components/Stats";
 import HowItWorks from "./components/HowItWorks";
+import Upload from "./pages/Upload";
 
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -53,6 +54,11 @@ function App() {
             <Route
                 path="/register"
                 element={<RegisterPage />}
+            />
+
+            <Route
+                path="/upload"
+                element={<Upload />}
             />
 
             <Route

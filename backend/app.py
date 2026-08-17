@@ -205,6 +205,8 @@ async def upload_resume(
 
                 phone=candidate.get("phone"),
 
+
+
                 skills=json.dumps(candidate.get("skills", [])),
 
                 education=candidate.get("education"),
@@ -215,9 +217,12 @@ async def upload_resume(
 
                 summary=candidate.get("summary"),
 
+
+
                 ats_score=candidate.get("ats_score"),
 
                 jd_match_score=candidate.get("jd_match_score"),
+
 
                 recommendation=candidate.get("hiring_recommendation"),
 
@@ -225,15 +230,21 @@ async def upload_resume(
 
                 recommendation_reason=candidate.get("recommendation_reason"),
 
+
+
                 matched_skills=json.dumps(candidate.get("matched_skills", [])),
+
 
                 missing_skills=json.dumps(candidate.get("missing_skills", [])),
 
+
                 strengths=json.dumps(candidate.get("strengths", [])),
+
 
                 weaknesses=json.dumps(candidate.get("weaknesses", [])),
 
                 suggestions=json.dumps(candidate.get("suggestions", [])),
+
 
                 interview_questions=json.dumps(
                     candidate.get("interview_questions", [])
@@ -241,13 +252,27 @@ async def upload_resume(
 
                 resume_file=candidate.get("resume_file")
 
-                 ) 
+            ) 
 
             db.add(new_candidate)
 
-        db.commit()
+            db.commit()
+
+
+            # Get the generated database ID
+            db.refresh(new_candidate)
+
+            # Add database ID to the candidate response
+            candidate["id"] = new_candidate.id
+
+            print(
+                f"✅ Saved candidate: {new_candidate.name} "
+                f"| ID: {new_candidate.id}"
+
+            )
 
         print("✅ Candidates saved successfully!")
+        
 
     except Exception as e:
 
@@ -258,6 +283,12 @@ async def upload_resume(
     finally:
 
         db.close()
+
+    
+    return {
+        "total_candidates": len(all_results),
+        "candidates": all_results
+    }
 
     # -------------------------
     # Add Rank
@@ -626,6 +657,10 @@ def toggle_favorite(candidate_id: int):
 
 async def schedule_interview(data: dict):
 
+    print("\n========== INTERVIEW REQUEST ==========")
+    print("Received interview data:")
+    print(data)
+
     db = SessionLocal()
 
     try:
@@ -680,43 +715,6 @@ async def schedule_interview(data: dict):
 
                 interview_type=interview.interview_type,
  
-                meeting_link=interview.meeting_link,
-
-                round_name=interview.round
-
-            )
-
-        # ==========================
-        # Send Email
-        # ==========================
-
-        candidate = (
-
-            db.query(Candidate)
-
-            .filter(Candidate.id == data["candidate_id"])
-
-            .first()
-
-        )
-
-        if candidate:
-
-            await send_interview_email(
-
-
-                candidate_email=candidate.email,
-
-                candidate_name=candidate.name,
-
-                interview_date=interview.interview_date,
-
-                interview_time=interview.interview_time,
-
-                interviewer=interview.interviewer,
-
-                interview_type=interview.interview_type,
-
                 meeting_link=interview.meeting_link,
 
                 round_name=interview.round
@@ -782,7 +780,26 @@ async def update_interview(interview_id: int, data: dict):
             .first()
         )
 
+        print("\n========== INTERVIEW DEBUG ==========")
+        print("Candidate ID:", data["candidate_id"])
+        print("Candidate found:", candidate)
+
         if candidate:
+            print("Candidate name:", candidate.name)
+            print("Candidate email:", candidate.email)
+        else:
+            print("❌ Candidate NOT FOUND")
+
+        if candidate:
+
+            print("\n========== EMAIL DEBUG ==========")
+            print("Sending interview email...")
+            print("To:", candidate.email)
+            print("Name:", candidate.name)
+            print("Date:", interview.interview_date)
+            print("Time:", interview.interview_time)
+            print("Interviewer:", interview.interviewer)
+            print("Meeting link:", interview.meeting_link)
 
             await send_interview_email(
 

@@ -2,7 +2,6 @@ import ATSScore from "./ATSScore";
 import StrengthCard from "./StrengthCard";
 import WeaknessCard from "./WeaknessCard";
 import SuggestionCard from "./SuggestionCard";
-import { generatePDF } from "../utils/pdfGenerator";
 import { downloadReport } from "../services/downloadReport";
 import JDMatchCard from "./JDMatchCard";
 import MatchedSkills from "./MatchedSkills";
@@ -12,6 +11,10 @@ import RecommendationCard from "./RecommendationCard";
 
 
 function ResumeResult({ data }) {
+
+
+  console.log("RESUME RESULT DATA:", data);
+  
   if (!data) return null;
 
   return (

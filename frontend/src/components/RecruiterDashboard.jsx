@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { updateCandidateStatus } from "../services/CandidateService";
+import toast from "react-hot-toast";
 
 function RecruiterDashboard({ 
   data,
   onSelectCandidate,
   onCompare,
+  candidate1,
+  candidate2,
 
 }) {
 
@@ -19,17 +22,22 @@ function RecruiterDashboard({
 
   const handleStatusUpdate = async (candidate, status) => {
 
+    
+    console.log("CANDIDATE OBJECT:", candidate);
+    console.log("CANDIDATE KEYS:", Object.keys(candidate));
+
     try {
 
         await updateCandidateStatus(candidate.id, status);
 
-        alert(`Candidate marked as ${status}`);
+        toast.success(`Candidate marked as ${status}`);
+
+    
 
     } catch (error) {
 
-        console.error(error);
+        console.error("STATUS ERROR:", error);
 
-        alert("Failed to update status.");
 
     }
 
@@ -154,9 +162,62 @@ function RecruiterDashboard({
 
     </div> 
 
-      <div className="overflow-x-auto">
 
-        <table className="w-full">
+
+    {/* Comparison Selection */}
+
+    <div className="mb-6 bg-slate-800 border border-purple-500/40 rounded-xl p-5">
+
+      <h3 className="text-xl font-bold text-purple-400 mb-3">
+        ⚖️ Comparison Selection
+      </h3>
+
+      <div className="grid md:grid-cols-2 gap-4">
+
+        <div className="bg-slate-900 rounded-lg p-4">
+          <p className="text-gray-400 text-sm">
+            Candidate 1
+          </p>
+
+          <p className="text-white font-bold mt-1">
+            {candidate1
+              ? candidate1.name
+              : "Not selected"}
+          </p>
+        </div>
+
+        <div className="bg-slate-900 rounded-lg p-4">
+          <p className="text-gray-400 text-sm">
+            Candidate 2
+          </p>
+
+          <p className="text-white font-bold mt-1">
+            {candidate2
+              ? candidate2.name
+              : "Not selected"}
+          </p>
+        </div>
+
+      </div>
+
+      {!candidate2 && candidate1 && (
+        <p className="text-yellow-400 mt-4">
+          👉 Now click Compare on another candidate.
+        </p>
+      )}
+
+      {candidate1 && candidate2 && (
+        <p className="text-green-400 mt-4 font-bold">
+          ✅ Two candidates selected. Comparison is ready!
+        </p>
+      )}
+
+    </div>
+
+
+    <div className="overflow-x-auto">
+
+      <table className="w-full">
 
           <thead>
 
@@ -166,6 +227,7 @@ function RecruiterDashboard({
               <th className="p-3">Candidate</th>
               <th className="p-3">ATS</th>
               <th className="p-3">JD Match</th>
+              <th className="p-3">Status</th>
               <th className="p-3">Action</th>
 
             </tr>
@@ -177,7 +239,7 @@ function RecruiterDashboard({
             {candidates.map((candidate) => (
 
               <tr
-                key={candidate.rank}
+                key={candidate.email}
                 className="border-b border-slate-800 hover:bg-slate-800"
               >
 
@@ -211,20 +273,47 @@ function RecruiterDashboard({
 
                 <td className="p-3 text-center">
 
+                  <span
+                    className={
+                      candidate.status === "Shortlisted"
+                        ? "text-green-400 font-bold"
+                        : candidate.status === "Interview"
+                        ? "text-blue-400 font-bold"
+                        : candidate.status === "Rejected"
+                        ? "text-red-400 font-bold"
+                        : candidate.status === "Hired"
+                        ? "text-emerald-400 font-bold"
+                        : "text-yellow-400 font-bold"
+                    }
+                >
+                    {candidate.status || "Pending"}
+                </span>
+
+              </td>
+
+                <td className="p-3 text-center">
+
                   <div className="flex gap-2 justify-center">
 
                     <button
-                      onClick={() => onSelectCandidate(candidate)}
-                      className="bg-cyan-500 hover:bg-cyan-600 text-black px-4 py-2 rounded-lg font-bold"
+                        onClick={() => {
+                            console.log("VIEW CLICKED:", candidate);
+                            onSelectCandidate(candidate);
+                        }}
+                        className="bg-cyan-500 hover:bg-cyan-600 text-black px-4 py-2 rounded-lg font-bold"
                     >
-                      View 
+                        View
                     </button>
 
                     <button
-                      onClick={() => onCompare(candidate)}
-                      className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-bold"
+                        onClick={() => {
+                          
+                            console.log("COMPARE CLICKED:", candidate);
+                            onCompare(candidate);
+                        }}
+                        className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-bold"
                     >
-                      Compare
+                        Compare
                     </button>
 
                     <button
@@ -246,6 +335,13 @@ function RecruiterDashboard({
                         className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg"
                     >
                         Reject
+                    </button>
+
+                    <button
+                        onClick={() => handleStatusUpdate(candidate, "Hired")}
+                        className="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-lg"
+                    >
+                        Hire
                     </button>
 
                   </div>
