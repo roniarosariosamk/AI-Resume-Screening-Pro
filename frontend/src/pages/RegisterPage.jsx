@@ -31,7 +31,6 @@ function RegisterPage() {
             password
         );
 
-        console.log(data);
 
         toast.success("Registration Successful!");
 

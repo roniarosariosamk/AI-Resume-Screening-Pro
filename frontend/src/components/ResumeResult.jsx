@@ -11,9 +11,6 @@ import RecommendationCard from "./RecommendationCard";
 
 
 function ResumeResult({ data }) {
-
-
-  console.log("RESUME RESULT DATA:", data);
   
   if (!data) return null;
 

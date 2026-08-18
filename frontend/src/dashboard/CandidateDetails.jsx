@@ -182,7 +182,7 @@ function CandidateDetails() {
 
         }
             
-        console.log("Backend Response:", response);
+        
         toast.success(response.message);
 
             setShowInterviewModal(false);

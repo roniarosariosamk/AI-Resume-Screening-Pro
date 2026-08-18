@@ -6,9 +6,6 @@ export const downloadExcel = async (candidates) => {
 
   try {
 
-    console.log("✅ Excel button clicked");
-    console.log("Candidates:", candidates);
-
     const response = await axios.post(
 
       `${API_BASE_URL}/download-excel`,
@@ -23,8 +20,6 @@ export const downloadExcel = async (candidates) => {
       }
 
     );
-
-    console.log("✅ Excel response received");
 
     const url = window.URL.createObjectURL(response.data);
 
@@ -50,15 +45,10 @@ export const downloadExcel = async (candidates) => {
 
     if (error.response) {
 
-      console.log("Status:", error.response.status);
-
-      console.log("Response:", error.response.data);
 
       if (error.response.data instanceof Blob) {
 
         error.response.data.text().then(text => {
-
-          console.log("Backend Error:", text);
 
         });
 

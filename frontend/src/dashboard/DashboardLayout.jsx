@@ -113,9 +113,7 @@ function DashboardLayout() {
                     <SkillsAnalytics />
 
                     <InterviewCalendar
-                        onEditInterview={(interview) =>
-                            console.log(interview)
-                        }
+                        onEditInterview={(interview) => {}}
                     />
 
                 </div>

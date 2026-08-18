@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 function Hero() {
   const navigate = useNavigate();
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 text-white px-6 overflow-hidden">
+    <section className="hero-section relative min-h-[90vh] flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 text-white px-6 overflow-hidden">
 
        <div className="absolute inset-0 overflow-hidden -z-10">
 
@@ -46,7 +46,14 @@ function Hero() {
           </button>
 
 
-          <button className="px-8 py-4 border border-cyan-400 rounded-xl hover:bg-cyan-400 hover:text-black transition-all duration-300 hover:scale-105">
+          <button
+            onClick={() =>
+              document.getElementById("features")?.scrollIntoView({
+                behavior: "smooth",
+              })
+            }
+            className="px-8 py-4 border border-cyan-400 rounded-xl hover:bg-cyan-400 hover:text-black transition-all duration-300 hover:scale-105"
+          >
             ▶ Watch Demo
           </button>
 

@@ -34,7 +34,7 @@ function Features() {
   ];
 
   return (
-    <section className="bg-slate-950 text-white py-24 px-6">
+    <section id="features" className="bg-slate-950 text-white py-24 px-6">
 
       <h2 className="text-5xl font-bold text-center mb-16">
         Powerful Features

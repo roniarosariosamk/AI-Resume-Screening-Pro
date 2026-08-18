@@ -12,8 +12,6 @@ import {
 
 function InterviewCalendar({ onEditInterview}) {
 
-    console.log("InterviewCalendar component rendered");
-
     const [interviews, setInterviews] = useState([]);
 
     const [editingInterview, setEditingInterview] = useState(null);
@@ -100,8 +98,6 @@ function InterviewCalendar({ onEditInterview}) {
         try {
 
             const data = await getInterviews();
-
-            console.log("INTERVIEW DATA:", data);
 
             setInterviews(data);
 

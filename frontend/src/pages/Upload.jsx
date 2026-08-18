@@ -45,44 +45,53 @@ function UploadPage() {
   // UPLOAD + ANALYZE RESUME
   // =========================================================
 
-  const handleUpload = async () => {
+ const handleUpload = async () => {
+  try {
 
-    try {
-
-      setLoading(true);
-
-      const response = await uploadResume(files, jdFile);
-
-      console.log("UPLOAD RESPONSE:", response);
-
-      setResult(response);
-
-
-      // Automatically select the first candidate
-      if (
-        response.candidates &&
-        response.candidates.length > 0
-      ) {
-
-        setSelectedCandidate(response.candidates[0]);
-
-      }
-
-    } catch (error) {
-
-      console.error("UPLOAD ERROR:", error);
-
-      toast.error(
-        "Something went wrong while analyzing the resume."
-      );
-
-    } finally {
-
-      setLoading(false);
-
+    // Validate resume
+    if (files.length === 0) {
+      toast.error("Please upload at least one resume.");
+      return;
     }
 
-  };
+    // Validate resume file type
+    const invalidResume = files.some(
+      (file) => file.type !== "application/pdf"
+    );
+
+    if (invalidResume) {
+      toast.error("Only PDF resume files are allowed.");
+      return;
+    }
+
+    // Validate JD
+    if (!jdFile) {
+      toast.error("Please upload a Job Description.");
+      return;
+    }
+
+    setLoading(true);
+
+    const response = await uploadResume(files, jdFile);
+
+
+    setResult(response);
+
+    if (response.candidates && response.candidates.length > 0) {
+      setSelectedCandidate(response.candidates[0]);
+    }
+
+  } catch (error) {
+
+    console.error(error);
+    toast.error("Something went wrong while analyzing the resume.");
+
+  } finally {
+
+    setLoading(false);
+
+  }
+};
 
 
   // =========================================================
@@ -91,8 +100,6 @@ function UploadPage() {
 
   const handleCompare = (candidate) => {
 
-
-    console.log("COMPARE CLICKED:", candidate.name);
 
 
     // First candidate
@@ -380,10 +387,7 @@ function UploadPage() {
 
               onSelectCandidate={(candidate) => {
 
-                console.log(
-                  "VIEW CLICKED FROM UPLOAD:",
-                  candidate
-                );
+              
 
                 setSelectedCandidate(candidate);
 

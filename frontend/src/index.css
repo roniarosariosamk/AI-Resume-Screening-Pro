@@ -1,1 +1,497 @@
 @import "tailwindcss";
+
+/* =====================================================
+   DARK THEME — DEFAULT
+===================================================== */
+
+:root {
+  --theme-bg: #020617;
+  --theme-bg-secondary: #0f172a;
+  --theme-card: #1e293b;
+  --theme-border: #334155;
+
+  --theme-text: #ffffff;
+  --theme-text-secondary: #cbd5e1;
+
+  --theme-accent: #22d3ee;
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+html.dark {
+  --theme-bg: #020617;
+  --theme-bg-secondary: #0f172a;
+  --theme-card: #1e293b;
+  --theme-border: #334155;
+
+  --theme-text: #ffffff;
+  --theme-text-secondary: #cbd5e1;
+
+  --theme-accent: #22d3ee;
+}
+
+
+/* =====================================================
+   LIGHT MODE
+===================================================== */
+
+html.light {
+  --theme-bg: #f8fafc;
+  --theme-bg-secondary: #ffffff;
+  --theme-card: #f1f5f9;
+  --theme-border: #cbd5e1;
+
+  --theme-text: #0f172a;
+  --theme-text-secondary: #475569;
+
+  --theme-accent: #0891b2;
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+
+/* =====================================================
+   LIGHT MODE — BACKGROUNDS
+===================================================== */
+
+html.light .bg-slate-950 {
+  background-color: #f8fafc !important;
+}
+
+html.light .bg-slate-900 {
+  background-color: #ffffff !important;
+}
+
+html.light .bg-slate-800 {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .bg-slate-700 {
+  background-color: #e2e8f0 !important;
+}
+
+
+/* =====================================================
+   LIGHT MODE — TEXT
+===================================================== */
+
+/* Main white text becomes dark */
+
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+
+/* Gray text becomes dark gray */
+
+html.light .text-gray-300 {
+  color: #334155 !important;
+}
+
+html.light .text-gray-400 {
+  color: #475569 !important;
+}
+
+html.light .text-gray-500 {
+  color: #64748b !important;
+}
+
+
+/* Slate text */
+
+html.light .text-slate-300 {
+  color: #334155 !important;
+}
+
+html.light .text-slate-400 {
+  color: #475569 !important;
+}
+
+
+/* =====================================================
+   LIGHT MODE — BORDERS
+===================================================== */
+
+html.light .border-slate-700 {
+  border-color: #cbd5e1 !important;
+}
+
+html.light .border-slate-800 {
+  border-color: #cbd5e1 !important;
+}
+
+html.light .border-slate-600 {
+  border-color: #cbd5e1 !important;
+}
+
+
+/* =====================================================
+   LIGHT MODE — INPUTS
+===================================================== */
+
+html.light input,
+html.light select,
+html.light textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #64748b !important;
+}
+
+
+/* =====================================================
+   LIGHT MODE — TABLES
+===================================================== */
+
+html.light th {
+  color: #0f172a;
+}
+
+html.light td {
+  color: #334155;
+}
+
+
+/* =====================================================
+   SMOOTH TRANSITIONS
+===================================================== */
+
+body,
+nav,
+section,
+main,
+div,
+header,
+footer,
+input,
+select,
+textarea {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* =====================================================
+   LIGHT MODE — HEADINGS / GRADIENT TEXT
+===================================================== */
+
+/* White gradient text should become dark in light mode */
+
+html.light .from-white {
+  --tw-gradient-from: #0f172a !important;
+  --tw-gradient-from-position: 0% !important;
+}
+
+html.light .via-white {
+  --tw-gradient-via: #334155 !important;
+}
+
+html.light .to-white {
+  --tw-gradient-to: #475569 !important;
+}
+
+
+/* Common light-mode heading colors */
+
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+
+/* Preserve white text on colored buttons */
+
+html.light .bg-cyan-500.text-white,
+html.light .bg-cyan-600.text-white,
+html.light .bg-blue-500.text-white,
+html.light .bg-blue-600.text-white,
+html.light .bg-green-500.text-white,
+html.light .bg-green-600.text-white,
+html.light .bg-purple-500.text-white,
+html.light .bg-purple-600.text-white {
+  color: #ffffff !important;
+}
+
+html.light .text-gray-100 {
+  color: #0f172a !important;
+}
+
+html.light .text-gray-200 {
+  color: #1e293b !important;
+}
+
+html.light .text-slate-100 {
+  color: #0f172a !important;
+}
+
+html.light .text-slate-200 {
+  color: #1e293b !important;
+}
+
+/* =====================================================
+   HERO SECTION — THEME
+===================================================== */
+
+.hero-section {
+  background: var(--theme-bg) !important;
+  color: var(--theme-text);
+}
+
+
+/* DARK MODE */
+
+html.dark .hero-section {
+  background:
+    linear-gradient(
+      135deg,
+      #020617 0%,
+      #0f172a 50%,
+      #083344 100%
+    ) !important;
+
+  color: #ffffff;
+}
+
+
+/* LIGHT MODE */
+
+html.light .hero-section {
+  background:
+    linear-gradient(
+      135deg,
+      #f8fafc 0%,
+      #ffffff 50%,
+      #ecfeff 100%
+    ) !important;
+
+  color: #0f172a;
+}
+
+
+/* =====================================================
+   HERO TEXT
+===================================================== */
+
+html.light .hero-section .text-white {
+  color: #0f172a !important;
+}
+
+html.dark .hero-section .text-white {
+  color: #ffffff !important;
+}
+
+
+/* Gray description */
+
+html.light .hero-section .text-gray-300 {
+  color: #334155 !important;
+}
+
+html.light .hero-section .text-gray-400 {
+  color: #475569 !important;
+}
+
+
+/* =====================================================
+   HERO BUTTONS
+===================================================== */
+
+html.light .hero-section .border-cyan-500 {
+  border-color: #0891b2 !important;
+}
+
+html.light .hero-section .hover\:text-cyan-400:hover {
+  color: #0891b2 !important;
+}
+
+
+/* =====================================================
+   HERO GRADIENT HEADINGS
+===================================================== */
+
+html.light .hero-section .from-white {
+  --tw-gradient-from: #0f172a !important;
+}
+
+html.light .hero-section .via-white {
+  --tw-gradient-via: #1e293b !important;
+}
+
+html.light .hero-section .to-white {
+  --tw-gradient-to: #475569 !important;
+}
+
+/* =====================================================
+   HERO SECTION THEME
+===================================================== */
+
+/* DARK MODE */
+html.dark .hero-section {
+  background:
+    linear-gradient(
+      135deg,
+      #020617 0%,
+      #0f172a 50%,
+      #083344 100%
+    ) !important;
+
+  color: #ffffff !important;
+}
+
+
+/* LIGHT MODE */
+html.light .hero-section {
+  background:
+    linear-gradient(
+      135deg,
+      #f8fafc 0%,
+      #ffffff 50%,
+      #ecfeff 100%
+    ) !important;
+
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   HERO MAIN HEADING
+===================================================== */
+
+html.light .hero-section h1 {
+  color: #0f172a !important;
+}
+
+
+/* Keep "Smarter With AI" cyan */
+html.light .hero-section h1 .text-cyan-400 {
+  color: #0891b2 !important;
+}
+
+
+/* =====================================================
+   HERO DESCRIPTION
+===================================================== */
+
+html.light .hero-section p.text-slate-300 {
+  color: #334155 !important;
+}
+
+
+/* =====================================================
+   HERO BUTTON — WATCH DEMO
+===================================================== */
+
+html.light .hero-section button {
+  color: #0f172a;
+}
+
+html.light .hero-section button.bg-cyan-500 {
+  color: #000000 !important;
+}
+
+/* =====================================================
+   HERO GET STARTED BUTTON — LIGHT MODE
+===================================================== */
+
+html.light .hero-section button.bg-cyan-500 {
+  background-color: #06b6d4 !important;
+  color: #000000 !important;
+  border: 2px solid #0891b2 !important;
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.35) !important;
+}
+
+html.light .hero-section button.bg-cyan-500:hover {
+  background-color: #22d3ee !important;
+  color: #000000 !important;
+}
+
+/* =====================================================
+   NAVBAR GET STARTED BUTTON
+===================================================== */
+
+.navbar-get-started {
+  background-color: #06b6d4 !important;
+  color: #000000 !important;
+  border: 2px solid #0891b2;
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.25);
+}
+
+.navbar-get-started:hover {
+  background-color: #22d3ee !important;
+  color: #000000 !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .navbar-get-started {
+  background-color: #06b6d4 !important;
+  color: #000000 !important;
+  border-color: #0891b2 !important;
+}
+
+
+/* DARK MODE */
+
+html.dark .navbar-get-started {
+  background-color: #22d3ee !important;
+  color: #000000 !important;
+  border-color: #22d3ee !important;
+}
+
+/* =====================================================
+   HERO BACKGROUND GLOW — LIGHT MODE
+   Only affects decorative glow elements
+===================================================== */
+
+html.light .hero-section > .absolute .bg-cyan-500 {
+  opacity: 0.08 !important;
+}
+
+html.light .hero-section > .absolute .bg-blue-600 {
+  opacity: 0.08 !important;
+}
+
+
+/* =====================================================
+   HERO GET STARTED BUTTON
+===================================================== */
+
+html.light .hero-section button.bg-cyan-500 {
+  opacity: 1 !important;
+  background-color: #06b6d4 !important;
+  color: #000000 !important;
+  border: 2px solid #0891b2 !important;
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.35) !important;
+}
+
+html.light .hero-section button.bg-cyan-500:hover {
+  background-color: #22d3ee !important;
+  color: #000000 !important;
+}
