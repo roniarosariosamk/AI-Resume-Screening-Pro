@@ -9,7 +9,7 @@ function SearchBar({
 
     return (
 
-        <div className="flex justify-between items-center mb-8">
+        <div className="dashboard-search flex justify-between items-center mb-8">
 
             {/* Search */}
 
@@ -31,18 +31,19 @@ function SearchBar({
                     onChange={(e) => setSearch(e.target.value)}
 
                     className="
-                    w-full
-                    bg-slate-900
-                    border
-                    border-slate-800
-                    rounded-xl
-                    py-3
-                    pl-12
-                    pr-4
-                    text-white
-                    placeholder-gray-500
-                    focus:outline-none
-                    focus:border-cyan-400
+                        dashboard-search-input
+                        w-full
+                        bg-slate-900
+                        border
+                        border-slate-800
+                        rounded-xl
+                        py-3
+                        pl-12
+                        pr-4
+                        text-white
+                        placeholder-gray-500
+                        focus:outline-none
+                        focus:border-cyan-400
                     "
 
                 />

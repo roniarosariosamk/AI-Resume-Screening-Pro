@@ -11,7 +11,7 @@ function Sidebar() {
 
     return (
 
-        <div className="w-72 min-h-screen bg-slate-900 border-r border-slate-800 flex flex-col">
+        <div className="dashboard-sidebar w-72 min-h-screen bg-slate-900 border-r border-slate-800 flex flex-col">
 
             {/* Logo */}
 
@@ -90,6 +90,7 @@ function SidebarItem({ icon, title, active }) {
         <div
 
             className={`
+                sidebar-item
                 flex
                 items-center
                 gap-4

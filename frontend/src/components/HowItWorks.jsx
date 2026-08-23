@@ -23,7 +23,9 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="bg-slate-950 py-24 px-8 text-white">
+    <section 
+      id="how-it-works"
+      className="how-it-works-section bg-slate-950 py-24 px-8 text-white">
 
       <h2 className="text-5xl font-bold text-center text-cyan-400">
         How It Works

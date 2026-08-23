@@ -22,10 +22,6 @@ function RecruiterDashboard({
 
   const handleStatusUpdate = async (candidate, status) => {
 
-    
-    console.log("CANDIDATE OBJECT:", candidate);
-    console.log("CANDIDATE KEYS:", Object.keys(candidate));
-
     try {
 
         await updateCandidateStatus(candidate.id, status);
@@ -297,7 +293,6 @@ function RecruiterDashboard({
 
                     <button
                         onClick={() => {
-                            console.log("VIEW CLICKED:", candidate);
                             onSelectCandidate(candidate);
                         }}
                         className="bg-cyan-500 hover:bg-cyan-600 text-black px-4 py-2 rounded-lg font-bold"
@@ -308,7 +303,7 @@ function RecruiterDashboard({
                     <button
                         onClick={() => {
                           
-                            console.log("COMPARE CLICKED:", candidate);
+                        
                             onCompare(candidate);
                         }}
                         className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-bold"

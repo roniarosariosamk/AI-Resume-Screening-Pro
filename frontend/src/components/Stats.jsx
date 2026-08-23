@@ -19,7 +19,7 @@ function Stats() {
   ];
 
   return (
-    <section className="bg-slate-900 py-24 text-white">
+    <section className="stats-section bg-slate-900 py-24 text-white">
 
       <h2 className="text-center text-5xl font-bold text-cyan-400">
         Trusted by Recruiters

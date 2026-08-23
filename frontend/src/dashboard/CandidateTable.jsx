@@ -24,11 +24,11 @@ function CandidateTable({ candidates = [] }) {
 
     return (
 
-        <div className="mt-10 bg-slate-900 rounded-2xl overflow-hidden shadow-xl">
+        <div className="candidate-table mt-10 bg-slate-900 rounded-2xl overflow-hidden shadow-xl">
 
             <table className="w-full">
 
-                <thead className="bg-slate-800 text-cyan-300">
+                <thead className="candidate-table-head bg-slate-800 text-cyan-300">
 
                     <tr>
 
@@ -50,7 +50,7 @@ function CandidateTable({ candidates = [] }) {
 
                 </thead>
 
-                <tbody>
+                <tbody classname="candidate-table-body">
 
                     {candidates.map((candidate) => (
 
@@ -58,7 +58,7 @@ function CandidateTable({ candidates = [] }) {
 
                             key={candidate.id}
 
-                            className="border-b border-slate-800 hover:bg-slate-800 transition-all"
+                            className="candidate-table-row border-b border-slate-800 hover:bg-slate-800 transition-all"
 
                         >
 
@@ -96,7 +96,7 @@ function CandidateTable({ candidates = [] }) {
 
                             {/* Name */}
 
-                            <td className="p-4 font-semibold text-white">
+                            <td className="candidate-name p-4 font-semibold text-white">
 
                                 {candidate.name}
 
@@ -104,7 +104,7 @@ function CandidateTable({ candidates = [] }) {
 
                             {/* Email */}
 
-                            <td className="p-4 text-gray-300">
+                            <td className="candidate-email p-4 text-gray-300">
 
                                 {candidate.email}
 

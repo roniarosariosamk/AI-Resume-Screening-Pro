@@ -32,7 +32,7 @@ function LoginPage() {
 
     return (
 
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 relative overflow-hidden">
+        <div className="login-page min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 relative overflow-hidden">
 
                 
             {/* Background Glow */}
@@ -86,21 +86,20 @@ function LoginPage() {
                 {/* RIGHT SIDE */}
 
                 <div className="
-                backdrop-blur-xl
-                bg-white/10
-                border
-                border-white/20
-                rounded-3xl
-                p-10
-                shadow-2xl 
-                shadow-cyan-500/20
-                transition-all
-                duration-500
-                hover:scale-[1.02]
-                hover:shadow-cyan-500/40
-                "
-                
-                >
+                    login-card
+                    backdrop-blur-xl
+                    bg-white/10
+                    border
+                    border-white/20
+                    rounded-3xl
+                    p-10
+                    shadow-2xl 
+                    shadow-cyan-500/20
+                    transition-all
+                    duration-500
+                    hover:scale-[1.02]
+                    hover:shadow-cyan-500/40
+                ">
 
                     <div className="flex justify-center mb-6">
 

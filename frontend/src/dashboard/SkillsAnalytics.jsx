@@ -56,7 +56,7 @@ function SkillsAnalytics() {
 
     return (
 
-        <div className="bg-slate-900 rounded-2xl p-8 mt-10">
+        <div className="skills-analytics bg-slate-900 rounded-2xl p-8 mt-10">
 
             <div className="flex items-center gap-3 mb-8">
 
@@ -84,17 +84,29 @@ function SkillsAnalytics() {
 
                     <ResponsiveContainer width="100%" height={300}>
 
-                        <BarChart data={commonSkills} layout="vertical">
+                        <BarChart 
+                            data={commonSkills} 
+                            layout="vertical"
+                            classname="skills-chart"
+                        >
 
-                            <CartesianGrid strokeDasharray="3 3" />
+                            <CartesianGrid 
+                                strokeDasharray="3 3"
+                                className="skills-grid" 
+                            />
 
-                            <XAxis type="number" />
+                            <XAxis
+                                type="number" 
+                                className="skills-axis"
+                            />
 
                             <YAxis
 
                                 dataKey="skill"
 
                                 type="category"
+
+                                className="skills-axis"
 
                             />
 
@@ -126,11 +138,23 @@ function SkillsAnalytics() {
 
                     <ResponsiveContainer width="100%" height={300}>
 
-                        <BarChart data={missingSkills} layout="vertical">
+                        <BarChart 
+                            data={missingSkills} 
+                            layout="vertical"
+                            classname="skills-chart"
+                        >
 
-                            <CartesianGrid strokeDasharray="3 3" />
+                            <CartesianGrid 
+                                strokeDasharray="3 3" 
+                                className="skills-grid"
+                            />
 
-                            <XAxis type="number" />
+                            <XAxis 
+                                type="number" 
+
+                                className="skills-axis"
+                            
+                            />
 
                             <YAxis
 
@@ -138,9 +162,18 @@ function SkillsAnalytics() {
 
                                 type="category"
 
+                                className="skills-axis"
+
                             />
 
-                            <Tooltip />
+                            <Tooltip 
+                                contentStyle={{
+                                    backgroundColor: "var(--chart-tooltip-bg)",
+                                    border: "1px solid var(--chart-tooltip-border)",
+                                    color: "var(--chart-tooltip-text)",
+                                    borderRadius: "10px"
+                                }}
+                            />
 
                             <Bar
 

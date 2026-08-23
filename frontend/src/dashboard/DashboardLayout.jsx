@@ -54,7 +54,7 @@ function DashboardLayout() {
 
     return (
 
-        <div className="flex min-h-screen bg-slate-950">
+        <div className="dashboard-page flex min-h-screen bg-slate-950">
 
             {/* Sidebar */}
 

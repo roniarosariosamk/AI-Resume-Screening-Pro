@@ -56,11 +56,11 @@ function RegisterPage() {
 
     return (
 
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950">
+        <div className="register-page min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950">
 
             <div className="w-full max-w-md">
 
-                <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-10 shadow-2xl shadow-cyan-500/20">
+                <div className="register-card backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-10 shadow-2xl shadow-cyan-500/20">
 
                     <div className="flex justify-center mb-6">
 

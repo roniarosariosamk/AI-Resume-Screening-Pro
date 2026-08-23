@@ -145,7 +145,7 @@ function InterviewCalendar({ onEditInterview}) {
 
     return (
 
-        <div className="bg-slate-900 rounded-2xl p-8 mt-10">
+        <div className="interview-calendar bg-slate-900 rounded-2xl p-8 mt-10">
 
             <div className="flex items-center gap-3 mb-8">
 
@@ -170,7 +170,7 @@ function InterviewCalendar({ onEditInterview}) {
 
                     (
 
-                        <p className="text-gray-400">
+                        <p className="interview-empty text-gray-400">
 
                             No interviews scheduled.
 
@@ -188,19 +188,19 @@ function InterviewCalendar({ onEditInterview}) {
 
                                 key={item.id}
 
-                                className="bg-slate-800 rounded-xl p-5 flex justify-between items-center hover:bg-slate-700 transition-all"
+                                className="interview-card bg-slate-800 rounded-xl p-5 flex justify-between items-center hover:bg-slate-700 transition-all"
 
                             >
 
                                 <div>
 
-                                    <h3 className="text-xl font-bold text-white">
+                                    <h3 className="interview-name text-xl font-bold text-white">
 
                                         {item.name}
 
                                     </h3>
 
-                                    <p className="text-gray-400">
+                                    <p className="interview-email text-gray-400">
 
                                         {item.email}
 
@@ -253,7 +253,7 @@ function InterviewCalendar({ onEditInterview}) {
 
                                     </div>
 
-                                    <p className="text-gray-400 mt-2">
+                                    <p className="interview-type text-gray-400 mt-2">
 
                                         {item.type}
 
@@ -307,9 +307,9 @@ function InterviewCalendar({ onEditInterview}) {
         {showEditModal && (
             <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
 
-                <div className="bg-slate-900 rounded-2xl p-8 w-[550px] border border-slate-700">
+                <div className="interview-modal bg-slate-900 rounded-2xl p-8 w-[550px] border border-slate-700">
 
-                    <h2 className="text-3xl font-bold text-white mb-6">
+                    <h2 className="interview-modal-title text-3xl font-bold text-white mb-6">
                         ✏️ Edit Interview
                     </h2>
 
@@ -331,7 +331,7 @@ function InterviewCalendar({ onEditInterview}) {
                                 interview_date: e.target.value
                            })
                         }
-                        className="w-full bg-slate-800 text-white p-3 rounded-lg"
+                        className="interview-input w-full bg-slate-800 text-white p-3 rounded-lg"
                     />
 
                     <input
@@ -343,7 +343,7 @@ function InterviewCalendar({ onEditInterview}) {
                                 interview_time: e.target.value
                             })
                         }
-                        className="w-full bg-slate-800 text-white p-3 rounded-lg"
+                        className="interview-input w-full bg-slate-800 text-white p-3 rounded-lg"
                     />
 
                     <input
@@ -356,7 +356,7 @@ function InterviewCalendar({ onEditInterview}) {
                                 interviewer: e.target.value
                             })
                         }
-                        className="w-full bg-slate-800 text-white p-3 rounded-lg"
+                        className="interview-input w-full bg-slate-800 text-white p-3 rounded-lg"
                     />
 
                     <input
@@ -369,7 +369,7 @@ function InterviewCalendar({ onEditInterview}) {
                                 meeting_link: e.target.value
                             })
                         }
-                        className="w-full bg-slate-800 text-white p-3 rounded-lg"
+                        className="interview-input w-full bg-slate-800 text-white p-3 rounded-lg"
                     />
 
                 </div>

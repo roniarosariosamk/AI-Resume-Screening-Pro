@@ -19,7 +19,7 @@ function Topbar() {
 
     return (
 
-        <div className="h-20 bg-slate-900 border-b border-slate-800 flex items-center justify-between px-8">
+        <div className="dashboard-topbar h-20 bg-slate-900 border-b border-slate-800 flex items-center justify-between px-8">
 
             {/* Left */}
 

@@ -60,7 +60,7 @@ function DashboardContent() {
 
     return (
 
-        <div className="mt-10">
+        <div className="dashboard-content mt-10">
 
             <SearchBar
 
@@ -85,6 +85,7 @@ function DashboardContent() {
                     onClick={() => setFavoriteOnly(!favoriteOnly)}
 
                     className={`
+                        dashboard-favorite-button
                         px-5
                         py-2
                         rounded-lg

@@ -495,3 +495,1452 @@ html.light .hero-section button.bg-cyan-500:hover {
   background-color: #22d3ee !important;
   color: #000000 !important;
 }
+
+/* =====================================================
+   FEATURES SECTION — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .features-section {
+  background-color: #020617 !important;
+  color: #ffffff !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .features-section {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   FEATURES HEADING
+===================================================== */
+
+html.light .features-section h2 {
+  color: #0f172a !important;
+}
+
+html.dark .features-section h2 {
+  color: #ffffff !important;
+}
+
+
+/* =====================================================
+   FEATURE CARDS
+===================================================== */
+
+html.dark .features-section .bg-slate-900 {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+html.light .features-section .bg-slate-900 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+
+/* =====================================================
+   FEATURE CARD TITLES
+===================================================== */
+
+html.light .features-section h3 {
+  color: #0f172a !important;
+}
+
+html.dark .features-section h3 {
+  color: #ffffff !important;
+}
+
+
+/* =====================================================
+   FEATURE DESCRIPTIONS
+===================================================== */
+
+html.light .features-section p.text-slate-300 {
+  color: #475569 !important;
+}
+
+html.dark .features-section p.text-slate-300 {
+  color: #cbd5e1 !important;
+}
+
+
+/* =====================================================
+   FEATURE CARD HOVER
+===================================================== */
+
+html.light .features-section .bg-slate-900:hover {
+  border-color: #22d3ee !important;
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15) !important;
+}
+
+html.dark .features-section .bg-slate-900:hover {
+  border-color: #22d3ee !important;
+}
+
+/* =====================================================
+   HOW IT WORKS — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .how-it-works-section {
+  background-color: #020617 !important;
+  color: #ffffff !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .how-it-works-section {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+html.light .how-it-works-section h2 {
+  color: #0891b2 !important;
+}
+
+html.dark .how-it-works-section h2 {
+  color: #22d3ee !important;
+}
+
+
+/* =====================================================
+   STEP CARDS
+===================================================== */
+
+html.dark .how-it-works-section .bg-slate-900 {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+html.light .how-it-works-section .bg-slate-900 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+
+/* =====================================================
+   STEP NUMBERS
+===================================================== */
+
+html.light .how-it-works-section .text-cyan-400 {
+  color: #0891b2 !important;
+}
+
+html.dark .how-it-works-section .text-cyan-400 {
+  color: #22d3ee !important;
+}
+
+
+/* =====================================================
+   STEP TITLES
+===================================================== */
+
+html.light .how-it-works-section h3 {
+  color: #0f172a !important;
+}
+
+html.dark .how-it-works-section h3 {
+  color: #ffffff !important;
+}
+
+
+/* =====================================================
+   STEP DESCRIPTIONS
+===================================================== */
+
+html.light .how-it-works-section p.text-gray-300 {
+  color: #475569 !important;
+}
+
+html.dark .how-it-works-section p.text-gray-300 {
+  color: #cbd5e1 !important;
+}
+
+
+/* =====================================================
+   CARD HOVER
+===================================================== */
+
+html.light .how-it-works-section .bg-slate-900:hover {
+  border-color: #22d3ee !important;
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15) !important;
+}
+
+html.dark .how-it-works-section .bg-slate-900:hover {
+  border-color: #22d3ee !important;
+}
+
+/* =====================================================
+   STATS SECTION — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .stats-section {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .stats-section {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   STATS HEADING
+===================================================== */
+
+html.dark .stats-section h2 {
+  color: #22d3ee !important;
+}
+
+html.light .stats-section h2 {
+  color: #0891b2 !important;
+}
+
+
+/* =====================================================
+   STAT CARDS
+===================================================== */
+
+html.dark .stats-section .bg-slate-800 {
+  background-color: #1e293b !important;
+}
+
+html.light .stats-section .bg-slate-800 {
+  background-color: #ffffff !important;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08) !important;
+}
+
+
+/* =====================================================
+   STAT VALUES
+===================================================== */
+
+html.dark .stats-section h3 {
+  color: #22d3ee !important;
+}
+
+html.light .stats-section h3 {
+  color: #0891b2 !important;
+}
+
+
+/* =====================================================
+   STAT TITLES
+===================================================== */
+
+html.dark .stats-section p.text-gray-300 {
+  color: #cbd5e1 !important;
+}
+
+html.light .stats-section p.text-gray-300 {
+  color: #475569 !important;
+}
+
+/* =====================================================
+   LOGIN PAGE — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .login-page {
+  background:
+    linear-gradient(
+      135deg,
+      #020617 0%,
+      #0f172a 50%,
+      #172554 100%
+    ) !important;
+
+  color: #ffffff;
+}
+
+
+/* LIGHT MODE */
+
+html.light .login-page {
+  background:
+    linear-gradient(
+      135deg,
+      #f8fafc 0%,
+      #ffffff 50%,
+      #eff6ff 100%
+    ) !important;
+
+  color: #0f172a;
+}
+
+
+/* =====================================================
+   LEFT SIDE TEXT
+===================================================== */
+
+html.light .login-page h1 {
+  color: #0891b2 !important;
+}
+
+html.light .login-page p.text-cyan-300 {
+  color: #0e7490 !important;
+}
+
+html.light .login-page p.text-gray-300 {
+  color: #475569 !important;
+}
+
+
+/* =====================================================
+   LOGIN CARD
+===================================================== */
+
+html.dark .login-card {
+  background-color: rgba(255, 255, 255, 0.10) !important;
+  border-color: rgba(255, 255, 255, 0.20) !important;
+}
+
+html.light .login-card {
+  background-color: rgba(255, 255, 255, 0.90) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12) !important;
+}
+
+
+/* =====================================================
+   LOGIN CARD TEXT
+===================================================== */
+
+html.light .login-card h2 {
+  color: #0f172a !important;
+}
+
+html.light .login-card p.text-gray-400 {
+  color: #475569 !important;
+}
+
+html.light .login-card p.text-gray-500 {
+  color: #64748b !important;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+html.light .login-card input {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light .login-card input::placeholder {
+  color: #64748b !important;
+}
+
+html.light .login-card input:focus {
+  border-color: #06b6d4 !important;
+  background-color: #ffffff !important;
+}
+
+
+/* DARK INPUTS */
+
+html.dark .login-card input {
+  background-color: rgba(15, 23, 42, 0.70) !important;
+  color: #ffffff !important;
+}
+
+
+/* =====================================================
+   LOGIN ICON
+===================================================== */
+
+html.light .login-card svg {
+  color: #0891b2 !important;
+}
+
+/* =====================================================
+   REGISTER PAGE — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .register-page {
+  background:
+    linear-gradient(
+      135deg,
+      #020617 0%,
+      #0f172a 50%,
+      #172554 100%
+    ) !important;
+
+  color: #ffffff;
+}
+
+
+/* LIGHT MODE */
+
+html.light .register-page {
+  background:
+    linear-gradient(
+      135deg,
+      #f8fafc 0%,
+      #ffffff 50%,
+      #eff6ff 100%
+    ) !important;
+
+  color: #0f172a;
+}
+
+
+/* =====================================================
+   REGISTER CARD
+===================================================== */
+
+html.dark .register-card {
+  background-color: rgba(255, 255, 255, 0.10) !important;
+  border-color: rgba(255, 255, 255, 0.20) !important;
+}
+
+html.light .register-card {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12) !important;
+}
+
+
+/* =====================================================
+   REGISTER TEXT
+===================================================== */
+
+html.light .register-card h2 {
+  color: #0f172a !important;
+}
+
+html.light .register-card p {
+  color: #475569 !important;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+html.light .register-card input {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light .register-card input::placeholder {
+  color: #64748b !important;
+}
+
+html.light .register-card input:focus {
+  border-color: #06b6d4 !important;
+  background-color: #ffffff !important;
+}
+
+
+/* DARK INPUTS */
+
+html.dark .register-card input {
+  background-color: rgba(15, 23, 42, 0.70) !important;
+  color: #ffffff !important;
+}
+
+
+/* =====================================================
+   REGISTER ICON
+===================================================== */
+
+html.light .register-card svg {
+  color: #0891b2 !important;
+}
+
+
+/* =====================================================
+   REGISTER BUTTON
+===================================================== */
+
+html.light .register-card button {
+  color: #000000 !important;
+  opacity: 1 !important;
+}
+
+html.dark .register-card button {
+  color: #000000 !important;
+}
+
+/* =====================================================
+   DASHBOARD LAYOUT — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .dashboard-page {
+  background-color: #020617 !important;
+  color: #ffffff !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .dashboard-page {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   DASHBOARD MAIN TEXT
+===================================================== */
+
+html.light .dashboard-page h1 {
+  color: #0f172a !important;
+}
+
+html.dark .dashboard-page h1 {
+  color: #ffffff !important;
+}
+
+
+/* Keep Recruiter cyan */
+
+html.light .dashboard-page h1 .text-cyan-400 {
+  color: #0891b2 !important;
+}
+
+html.dark .dashboard-page h1 .text-cyan-400 {
+  color: #22d3ee !important;
+}
+
+
+/* =====================================================
+   DASHBOARD SUBTEXT
+===================================================== */
+
+html.light .dashboard-page p.text-gray-400 {
+  color: #475569 !important;
+}
+
+html.light .dashboard-page p.text-gray-500 {
+  color: #64748b !important;
+}
+
+
+html.dark .dashboard-page p.text-gray-400 {
+  color: #94a3b8 !important;
+}
+
+html.dark .dashboard-page p.text-gray-500 {
+  color: #64748b !important;
+}
+
+/* =====================================================
+   DASHBOARD SIDEBAR — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .dashboard-sidebar {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .dashboard-sidebar {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+
+/* =====================================================
+   SIDEBAR LOGO
+===================================================== */
+
+html.dark .dashboard-sidebar h1 {
+  color: #22d3ee !important;
+}
+
+html.light .dashboard-sidebar h1 {
+  color: #0891b2 !important;
+}
+
+
+/* =====================================================
+   SIDEBAR SUBTITLE
+===================================================== */
+
+html.dark .dashboard-sidebar p {
+  color: #64748b !important;
+}
+
+html.light .dashboard-sidebar p {
+  color: #64748b !important;
+}
+
+
+/* =====================================================
+   SIDEBAR ITEMS — NORMAL
+===================================================== */
+
+html.dark .dashboard-sidebar .sidebar-item {
+  color: #cbd5e1 !important;
+}
+
+html.light .dashboard-sidebar .sidebar-item {
+  color: #334155 !important;
+}
+
+
+/* =====================================================
+   SIDEBAR ITEMS — HOVER
+===================================================== */
+
+html.dark .dashboard-sidebar .sidebar-item:hover {
+  background-color: #1e293b !important;
+  color: #22d3ee !important;
+}
+
+html.light .dashboard-sidebar .sidebar-item:hover {
+  background-color: #f1f5f9 !important;
+  color: #0891b2 !important;
+}
+
+
+/* =====================================================
+   ACTIVE SIDEBAR ITEM
+===================================================== */
+
+html.dark .dashboard-sidebar .sidebar-item.bg-cyan-500 {
+  background-color: #22d3ee !important;
+  color: #000000 !important;
+}
+
+html.light .dashboard-sidebar .sidebar-item.bg-cyan-500 {
+  background-color: #06b6d4 !important;
+  color: #000000 !important;
+}
+
+/* =====================================================
+   DASHBOARD TOPBAR — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .dashboard-topbar {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .dashboard-topbar {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+
+/* =====================================================
+   TOPBAR HEADING
+===================================================== */
+
+html.dark .dashboard-topbar h2 {
+  color: #ffffff !important;
+}
+
+html.light .dashboard-topbar h2 {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   EMAIL
+===================================================== */
+
+html.dark .dashboard-topbar p {
+  color: #94a3b8 !important;
+}
+
+html.light .dashboard-topbar p {
+  color: #475569 !important;
+}
+
+
+/* =====================================================
+   ICONS
+===================================================== */
+
+html.dark .dashboard-topbar svg {
+  color: #22d3ee;
+}
+
+html.light .dashboard-topbar svg {
+  color: #0891b2;
+}
+
+
+/* =====================================================
+   LOGOUT BUTTON
+===================================================== */
+
+html.dark .dashboard-topbar button {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+html.light .dashboard-topbar button {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+html.dark .dashboard-topbar button:hover,
+html.light .dashboard-topbar button:hover {
+  background-color: #b91c1c !important;
+}
+
+/* =====================================================
+   DASHBOARD STATS CARDS — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .stats-cards > div {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .stats-cards > div {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08) !important;
+}
+
+
+/* =====================================================
+   CARD TITLES
+===================================================== */
+
+html.dark .stats-cards p.text-gray-400 {
+  color: #94a3b8 !important;
+}
+
+html.light .stats-cards p.text-gray-400 {
+  color: #475569 !important;
+}
+
+
+/* =====================================================
+   CARD VALUES
+===================================================== */
+
+html.dark .stats-cards h2 {
+  color: #ffffff !important;
+}
+
+html.light .stats-cards h2 {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   CARD HOVER
+===================================================== */
+
+html.light .stats-cards > div:hover {
+  border-color: #22d3ee !important;
+  box-shadow: 0 12px 30px rgba(6, 182, 212, 0.15) !important;
+}
+
+html.dark .stats-cards > div:hover {
+  border-color: #22d3ee !important;
+}
+
+/* =====================================================
+   DASHBOARD CONTENT — THEME
+===================================================== */
+
+html.dark .dashboard-content {
+  color: #ffffff;
+}
+
+html.light .dashboard-content {
+  color: #0f172a;
+}
+
+
+/* =====================================================
+   FAVORITES BUTTON
+===================================================== */
+
+/* Normal state */
+
+html.dark .dashboard-favorite-button {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+}
+
+html.light .dashboard-favorite-button {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+
+/* Hover */
+
+html.dark .dashboard-favorite-button:hover {
+  background-color: #334155 !important;
+}
+
+html.light .dashboard-favorite-button:hover {
+  background-color: #cbd5e1 !important;
+}
+
+
+/* =====================================================
+   FAVORITES ACTIVE STATE
+===================================================== */
+
+html.dark .dashboard-favorite-button.bg-yellow-400,
+html.light .dashboard-favorite-button.bg-yellow-400 {
+  background-color: #facc15 !important;
+  color: #000000 !important;
+}
+
+/* =====================================================
+   DASHBOARD SEARCH BAR — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .dashboard-search-input,
+html.dark .dashboard-status-select {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+  color: #ffffff !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .dashboard-search-input,
+html.light .dashboard-status-select {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+}
+
+
+/* Search placeholder */
+
+html.dark .dashboard-search-input::placeholder {
+  color: #64748b !important;
+}
+
+html.light .dashboard-search-input::placeholder {
+  color: #64748b !important;
+}
+
+
+/* Focus */
+
+html.light .dashboard-search-input:focus,
+html.light .dashboard-status-select:focus {
+  border-color: #06b6d4 !important;
+}
+
+
+/* Dropdown options */
+
+html.light .dashboard-status-select option {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+html.dark .dashboard-status-select option {
+  background-color: #0f172a;
+  color: #ffffff;
+}
+
+/* =====================================================
+   CANDIDATE TABLE — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .candidate-table {
+  background-color: #0f172a !important;
+}
+
+html.dark .candidate-table-head {
+  background-color: #1e293b !important;
+  color: #67e8f9 !important;
+}
+
+html.dark .candidate-table-row {
+  border-color: #1e293b !important;
+}
+
+html.dark .candidate-table-row:hover {
+  background-color: #1e293b !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .candidate-table {
+  background-color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light .candidate-table-head {
+  background-color: #e2e8f0 !important;
+  color: #0e7490 !important;
+}
+
+html.light .candidate-table-row {
+  border-color: #e2e8f0 !important;
+}
+
+html.light .candidate-table-row:hover {
+  background-color: #f8fafc !important;
+}
+
+
+/* =====================================================
+   CANDIDATE NAME
+===================================================== */
+
+html.dark .candidate-name {
+  color: #ffffff !important;
+}
+
+html.light .candidate-name {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   CANDIDATE EMAIL
+===================================================== */
+
+html.dark .candidate-email {
+  color: #cbd5e1 !important;
+}
+
+html.light .candidate-email {
+  color: #475569 !important;
+}
+
+
+/* =====================================================
+   TABLE HEADINGS
+===================================================== */
+
+html.light .candidate-table th {
+  color: #0e7490 !important;
+}
+
+html.dark .candidate-table th {
+  color: #67e8f9 !important;
+}
+
+
+/* =====================================================
+   VIEW BUTTON
+===================================================== */
+
+html.light .candidate-table a button {
+  background-color: #06b6d4 !important;
+  color: #000000 !important;
+}
+
+html.dark .candidate-table a button {
+  background-color: #06b6d4 !important;
+  color: #000000 !important;
+}
+
+html.light .candidate-table a button:hover,
+html.dark .candidate-table a button:hover {
+  background-color: #22d3ee !important;
+}
+
+/* =====================================================
+   ATS CHART — THEME
+===================================================== */
+
+html.dark {
+  --chart-grid: #334155;
+  --chart-text: #cbd5e1;
+  --chart-tooltip-bg: #0f172a;
+  --chart-tooltip-border: #334155;
+  --chart-tooltip-text: #ffffff;
+}
+
+html.light {
+  --chart-grid: #cbd5e1;
+  --chart-text: #475569;
+  --chart-tooltip-bg: #ffffff;
+  --chart-tooltip-border: #cbd5e1;
+  --chart-tooltip-text: #0f172a;
+}
+
+
+/* =====================================================
+   CHART CONTAINER
+===================================================== */
+
+html.dark .ats-chart {
+  background-color: #0f172a !important;
+}
+
+html.light .ats-chart {
+  background-color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+
+/* =====================================================
+   CHART TITLE
+===================================================== */
+
+html.dark .ats-chart h2 {
+  color: #ffffff !important;
+}
+
+html.light .ats-chart h2 {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   RECHARTS GRID
+===================================================== */
+
+.ats-chart .ats-grid line {
+  stroke: var(--chart-grid) !important;
+}
+
+
+/* =====================================================
+   AXIS TEXT
+===================================================== */
+
+.ats-chart .ats-axis text {
+  fill: var(--chart-text) !important;
+}
+
+
+/* Axis lines */
+
+.ats-chart .ats-axis line,
+.ats-chart .ats-axis path {
+  stroke: var(--chart-grid) !important;
+}
+
+/* =====================================================
+   HIRING FUNNEL — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .hiring-funnel h2 {
+  color: #ffffff !important;
+}
+
+html.dark .hiring-funnel-label {
+  color: #ffffff !important;
+}
+
+html.dark .hiring-funnel-track {
+  background-color: #1e293b !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .hiring-funnel h2 {
+  color: #0f172a !important;
+}
+
+html.light .hiring-funnel-label {
+  color: #0f172a !important;
+}
+
+html.light .hiring-funnel-track {
+  background-color: #e2e8f0 !important;
+}
+
+/* =====================================================
+   AI INSIGHTS — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .ai-insights {
+  background-color: #0f172a !important;
+}
+
+html.dark .ai-insight-card,
+html.dark .ai-best-candidate {
+  background-color: #1e293b !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .ai-insights {
+  background-color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light .ai-insight-card,
+html.light .ai-best-candidate {
+  background-color: #f1f5f9 !important;
+}
+
+
+/* =====================================================
+   AI INSIGHTS HEADING
+===================================================== */
+
+html.dark .ai-insights h2 {
+  color: #ffffff !important;
+}
+
+html.light .ai-insights h2 {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   INSIGHT TITLES
+===================================================== */
+
+html.dark .ai-insight-card p {
+  color: #94a3b8 !important;
+}
+
+html.light .ai-insight-card p {
+  color: #475569 !important;
+}
+
+
+/* =====================================================
+   INSIGHT VALUES
+===================================================== */
+
+html.dark .ai-insight-card h2 {
+  color: #ffffff !important;
+}
+
+html.light .ai-insight-card h2 {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   BEST CANDIDATE
+===================================================== */
+
+html.dark .ai-best-candidate p {
+  color: #ffffff !important;
+}
+
+html.light .ai-best-candidate p {
+  color: #0f172a !important;
+}
+
+
+/* Loading */
+
+html.light .ai-insights {
+  color: #0f172a !important;
+}
+
+/* =====================================================
+   TOP CANDIDATES — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .top-candidates {
+  background-color: #0f172a !important;
+}
+
+html.dark .top-candidate-card {
+  background-color: #1e293b !important;
+}
+
+html.dark .top-candidate-card:hover {
+  background-color: #334155 !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .top-candidates {
+  background-color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light .top-candidate-card {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .top-candidate-card:hover {
+  background-color: #e2e8f0 !important;
+}
+
+
+/* =====================================================
+   CANDIDATE NAME
+===================================================== */
+
+html.dark .top-candidate-name {
+  color: #ffffff !important;
+}
+
+html.light .top-candidate-name {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+html.dark .top-candidate-status {
+  color: #94a3b8 !important;
+}
+
+html.light .top-candidate-status {
+  color: #475569 !important;
+}
+
+
+/* =====================================================
+   SECTION HEADING
+===================================================== */
+
+html.dark .top-candidates h2 {
+  color: #ffffff !important;
+}
+
+html.light .top-candidates h2 {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   SKILLS ANALYTICS — THEME
+===================================================== */
+
+html.dark .skills-analytics {
+  background-color: #0f172a !important;
+}
+
+html.light .skills-analytics {
+  background-color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+
+/* =====================================================
+   MAIN HEADING
+===================================================== */
+
+html.dark .skills-analytics h2 {
+  color: #ffffff !important;
+}
+
+html.light .skills-analytics h2 {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   CHART GRID
+===================================================== */
+
+.skills-analytics .skills-grid line {
+  stroke: var(--chart-grid) !important;
+}
+
+
+/* =====================================================
+   CHART AXES
+===================================================== */
+
+.skills-analytics .skills-axis text {
+  fill: var(--chart-text) !important;
+}
+
+.skills-analytics .skills-axis line,
+.skills-analytics .skills-axis path {
+  stroke: var(--chart-grid) !important;
+}
+
+/* =====================================================
+   INTERVIEW CALENDAR — THEME
+===================================================== */
+
+/* DARK MODE */
+
+html.dark .interview-calendar {
+  background-color: #0f172a !important;
+}
+
+html.dark .interview-card {
+  background-color: #1e293b !important;
+}
+
+html.dark .interview-card:hover {
+  background-color: #334155 !important;
+}
+
+
+/* LIGHT MODE */
+
+html.light .interview-calendar {
+  background-color: #ffffff !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light .interview-card {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .interview-card:hover {
+  background-color: #e2e8f0 !important;
+}
+
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+html.dark .interview-calendar h2 {
+  color: #ffffff !important;
+}
+
+html.light .interview-calendar h2 {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   CANDIDATE NAME
+===================================================== */
+
+html.dark .interview-name {
+  color: #ffffff !important;
+}
+
+html.light .interview-name {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   EMAIL / TYPE / EMPTY STATE
+===================================================== */
+
+html.dark .interview-email,
+html.dark .interview-type,
+html.dark .interview-empty {
+  color: #94a3b8 !important;
+}
+
+html.light .interview-email,
+html.light .interview-type,
+html.light .interview-empty {
+  color: #475569 !important;
+}
+
+
+/* =====================================================
+   EDIT MODAL
+===================================================== */
+
+html.dark .interview-modal {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+html.light .interview-modal {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2) !important;
+}
+
+html.dark .interview-modal-title {
+  color: #ffffff !important;
+}
+
+html.light .interview-modal-title {
+  color: #0f172a !important;
+}
+
+
+/* =====================================================
+   MODAL INPUTS
+===================================================== */
+
+html.dark .interview-input {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+  border: 1px solid #334155 !important;
+}
+
+html.light .interview-input {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+html.light .interview-input::placeholder {
+  color: #64748b !important;
+}
+
+.interview-input:focus {
+  outline: none;
+  border-color: #22d3ee !important;
+}
+
+
+/* =====================================================
+   DATE / TIME ICON COLOR
+===================================================== */
+
+html.light .interview-input::-webkit-calendar-picker-indicator {
+  filter: none;
+}
+
+html.dark .interview-input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}

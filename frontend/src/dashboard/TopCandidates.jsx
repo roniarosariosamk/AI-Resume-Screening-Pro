@@ -50,7 +50,7 @@ function TopCandidates() {
 
     return (
 
-        <div className="bg-slate-900 rounded-2xl p-8 mt-10">
+        <div className="top-candidates bg-slate-900 rounded-2xl p-8 mt-10">
 
             <div className="flex items-center gap-3 mb-8">
 
@@ -80,19 +80,19 @@ function TopCandidates() {
 
                             <div
 
-                                className="bg-slate-800 hover:bg-slate-700 transition-all rounded-xl p-5 flex justify-between items-center"
+                                className="top-candidate-card bg-slate-800 hover:bg-slate-700 transition-all rounded-xl p-5 flex justify-between items-center"
 
                             >
 
                                 <div>
 
-                                    <h3 className="text-xl font-bold text-white">
+                                    <h3 className="top-candidate-name text-xl font-bold text-white">
 
                                         {medals[index]} {candidate.name}
 
                                     </h3>
 
-                                    <p className="text-gray-400 mt-1">
+                                    <p className="top-candidate-status text-gray-400 mt-1">
 
                                         Status : {candidate.status}
 

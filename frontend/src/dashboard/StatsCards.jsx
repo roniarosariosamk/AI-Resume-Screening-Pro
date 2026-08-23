@@ -66,7 +66,7 @@ function StatsCards({ stats = {
 
     return (
 
-        <div className="grid grid-cols-4 gap-8">
+        <div className="stats-cards grid grid-cols-4 gap-8">
 
             {
 

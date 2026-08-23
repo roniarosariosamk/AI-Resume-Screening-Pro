@@ -36,7 +36,7 @@ function HiringFunnel() {
 
     return (
 
-        <div className="mt-14">
+        <div className="hiring-funnel mt-14">
 
             <h2 className="text-3xl font-bold text-white mb-8">
 
@@ -52,7 +52,7 @@ function HiringFunnel() {
 
                         <div key={index}>
 
-                            <div className="flex justify-between text-white mb-2">
+                            <div className="hiring-funnel-label flex justify-between text-white mb-2">
 
                                 <span>{stage.title}</span>
 
@@ -60,7 +60,7 @@ function HiringFunnel() {
 
                             </div>
 
-                            <div className="w-full h-5 bg-slate-800 rounded-full">
+                            <div className="hiring-funnel-track w-full h-5 bg-slate-800 rounded-full">
 
                                 <div
 

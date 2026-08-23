@@ -50,7 +50,7 @@ function ATSChart() {
 
     return (
 
-        <div className="bg-slate-900 rounded-2xl p-6 mt-10">
+        <div className="ats-chart bg-slate-900 rounded-2xl p-6 mt-10">
 
             <h2 className="text-2xl font-bold text-white mb-6">
 
@@ -62,17 +62,34 @@ function ATSChart() {
 
                 <BarChart data={data}>
 
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid
+                        strokeDasharray="3 3"
+                        classname="ats-grid"
+                    />
 
-                    <XAxis dataKey="name" />
+                    <XAxis 
+                        dataKey="name"
+                        class="ats-axis" 
+                    />
 
-                    <YAxis />
+                    <YAxis
+                        className="ats-axis"
+                    />  
 
-                    <Tooltip />
+                    <Tooltip
+                        contentStyle={{
+                            backgroundColor: "var(--chart-tooltip-bg)",
+                            border: "1px solid var(--chart--tooltip-border)",
+                            color: "var(--chart-tooltip-text)",
+                            borderRadius: "10px"
+                        }} 
+                    />
 
                     <Bar
 
                         dataKey="ats_score"
+
+                        fill="#22d3ee"
 
                         radius={[8, 8, 0, 0]}
 

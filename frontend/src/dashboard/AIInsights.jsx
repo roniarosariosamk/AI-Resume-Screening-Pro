@@ -50,7 +50,7 @@ function AIInsights() {
 
         return (
 
-            <div className="bg-slate-900 rounded-2xl p-6 mt-10 text-white">
+            <div className="ai-insights bg-slate-900 rounded-2xl p-6 mt-10 text-white">
 
                 Loading AI Insights...
 
@@ -114,7 +114,7 @@ function AIInsights() {
 
     return (
 
-        <div className="bg-slate-900 rounded-2xl p-8 mt-10">
+        <div className="ai-insights bg-slate-900 rounded-2xl p-8 mt-10">
 
             <div className="flex items-center gap-3 mb-8">
 
@@ -136,7 +136,7 @@ function AIInsights() {
 
                         key={index}
 
-                        className="bg-slate-800 rounded-xl p-5"
+                        className="ai-insight-card bg-slate-800 rounded-xl p-5"
 
                     >
 
@@ -164,7 +164,7 @@ function AIInsights() {
 
             </div>
 
-            <div className="mt-8 bg-slate-800 rounded-xl p-6">
+            <div className="ai-best-candidate mt-8 bg-slate-800 rounded-xl p-6">
 
                 <h3 className="text-xl text-cyan-400 font-semibold mb-3">
 
