@@ -17,7 +17,7 @@ function RecommendationCard({
   }
 
   return (
-    <div className="bg-slate-900 rounded-2xl p-6 shadow-xl">
+    <div className="recommendation-card bg-slate-900 rounded-2xl p-6 shadow-xl">
 
       <h2 className="text-2xl font-bold text-cyan-400 mb-6">
         🤖 AI Hiring Recommendation
@@ -37,7 +37,7 @@ function RecommendationCard({
           Confidence
         </h3>
 
-        <p className="text-3xl font-bold text-white">
+        <p className="recommendation-value text-3xl font-bold text-white">
           {confidence}%
         </p>
 
@@ -49,7 +49,7 @@ function RecommendationCard({
           Reason
         </h3>
 
-        <p className="text-gray-300">
+        <p className="recommendation-text text-gray-300">
           {reason}
         </p>
 

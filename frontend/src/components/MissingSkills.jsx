@@ -1,6 +1,6 @@
 function MissingSkills({ skills }) {
   return (
-    <div className="bg-slate-900 rounded-2xl p-6 shadow-xl">
+    <div className="missing-skills-card bg-slate-900 rounded-2xl p-6 shadow-xl">
 
       <h2 className="text-2xl font-bold text-red-400 mb-5">
         ❌ Missing Skills
@@ -12,7 +12,7 @@ function MissingSkills({ skills }) {
 
           <span
             key={index}
-            className="bg-red-600 px-4 py-2 rounded-full"
+            className="missing-skill-badge bg-red-600 px-4 py-2 rounded-full"
           >
             {skill}
           </span>

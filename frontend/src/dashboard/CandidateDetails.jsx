@@ -17,6 +17,7 @@ import {
     updateInterview
 } from "../services/CandidateService";
 import toast from "react-hot-toast";
+import API_BASE_URL from "../api/api";
 
 function CandidateDetails() {
 
@@ -185,7 +186,13 @@ function CandidateDetails() {
         
         toast.success(response.message);
 
+        // IMPORTANT:
+        // Reload candidate data so AI summary/recommendation remain intact
+        // remain synchronized after scheduling.
+        await loadCandidate();
+
             setShowInterviewModal(false);
+            setEditingInterview(null);
 
         } catch (error) {
 
@@ -816,7 +823,7 @@ function CandidateDetails() {
 
                         <a
 
-                            href={`http://127.0.0.1:8000/uploads/${candidate.resume_file}`}
+                            href={`${API_BASE_URL}/uploads/${candidate.resume_file}`}
 
                             target="_blank"
 
@@ -1010,13 +1017,16 @@ function CandidateDetails() {
                         </button>
 
                         <button
-                            onClick={handleSaveInterview}
+                            onClick={() => {
+                                console.log("🔥 SAVE INTERVIEW CLICKED");
+                                handleSaveInterview();
+                            }}
                             disabled={loading}
                             className={`px-6 py-2 rounded-lg text-white transition-all ${
                                 loading
                                     ? "bg-gray-600 cursor-not-allowed"
                                     : "bg-cyan-500 hover:bg-cyan-600"
-                           }`}
+                            }`}
                         >
                             {loading ? "⏳ Scheduling..." : "Save Interview"}
                         </button>

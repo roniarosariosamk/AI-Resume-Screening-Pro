@@ -27,7 +27,7 @@ function InterviewQuestions({ questions }) {
 
           <div
             key={index}
-            className="bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-cyan-500/30 transition duration-300"
+            className="interview-question-card bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-cyan-500/30 transition duration-300"
           >
 
             <div className="flex justify-between items-center mb-4">
@@ -46,7 +46,7 @@ function InterviewQuestions({ questions }) {
                   {q.difficulty}
                 </span>
 
-                <span className="bg-blue-600 px-3 py-1 rounded-full text-sm font-bold text-white">
+                <span className="interview-category bg-blue-600 px-3 py-1 rounded-full text-sm font-bold text-white">
                   {q.category}
                 </span>
 
@@ -54,7 +54,7 @@ function InterviewQuestions({ questions }) {
 
             </div>
 
-            <p className="text-gray-300 leading-7">
+            <p className="interview-question-text text-gray-300 leading-7">
               {q.question}
             </p>
 

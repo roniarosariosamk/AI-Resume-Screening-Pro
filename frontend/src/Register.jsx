@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
+import API_BASE_URL from "../api/api";
+
 
 const Register = () => {
     const navigate = useNavigate();
@@ -29,7 +31,7 @@ const Register = () => {
         try {
 
             const response = await axios.post(
-                "http://127.0.0.1:8000/register",
+                `${API_BASE_URL}/register`,
                 formData
             );
 

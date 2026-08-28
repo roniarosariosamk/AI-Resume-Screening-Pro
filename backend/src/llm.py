@@ -180,18 +180,18 @@ Job Description:
         text = text.replace("```", "")
         text = text.strip()
 
-        # Extract JSON
-        match = re.search(r"\{.*\}", text, re.DOTALL)
+        # Extract JSON safely
+        try:
+            result = json.loads(text)
+        except json.JSONDecodeError:
+            match = re.search(r"\{.*\}", text, re.DOTALL)
 
-        if not match:
-            raise Exception(
-                "Gemini did not return valid JSON.\n\n"
-                + text
-            )
+            if not match:
+                raise Exception(
+                    "Gemini did not return valid JSON.\n\n" + text
+                )
 
-        json_text = match.group(0)
-
-        result = json.loads(json_text)
+            result = json.loads(match.group(0))
 
         # Ensure every field exists
         result.setdefault("name", "")

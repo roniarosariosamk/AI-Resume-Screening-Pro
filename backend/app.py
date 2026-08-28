@@ -65,17 +65,7 @@ app.mount(
 
 Base.metadata.create_all(bind=engine)
 
-# ===========================
-# CORS
-# ===========================
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 # ===========================
 # Upload Folder
@@ -196,6 +186,28 @@ async def upload_resume(
     try:
 
         for candidate in all_results:
+
+            # -------------------------
+            # Validate AI Analysis
+            # -------------------------
+
+            if not candidate.get("name"):
+                print("❌ Skipping candidate: AI analysis failed")
+                continue
+
+            if not candidate.get("summary"):
+                print(
+                    f"❌ Skipping {candidate.get('name', 'Unknown')}: "
+                    "AI summary is missing"
+                )
+                continue
+
+            if not candidate.get("hiring_recommendation"):
+                print(
+                    f"❌ Skipping {candidate.get('name', 'Unknown')}: "
+                    "AI hiring recommendation is missing"
+                )
+                continue
            
             new_candidate = Candidate(
 

@@ -16,7 +16,7 @@ function ATSScore({ score }) {
   }
 
   return (
-    <div className="bg-slate-900 rounded-2xl p-8 shadow-xl text-center">
+    <div className="ats-score-card bg-slate-900 rounded-2xl p-8 shadow-xl text-center">
 
       <h2 className="text-3xl font-bold text-cyan-400 mb-8">
         🎯 ATS Score
@@ -29,11 +29,17 @@ function ATSScore({ score }) {
           text={`${atsScore}%`}
           styles={buildStyles({
             pathColor: color,
-            textColor: "#ffffff",
-            trailColor: "#334155",
+            textColor:
+              document.documentElement.classList.contains("light")
+                ? "#0f172a"
+                : "#ffffff",
+            trailColor:
+              document.documentElement.classList.contains("light")
+                ? "#cbd5e1"
+                : "#334155",
             textSize: "16px"
           })}
-        />
+       />
 
       </div>
 

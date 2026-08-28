@@ -1,6 +1,6 @@
 function JDMatchCard({ score }) {
   return (
-    <div className="bg-slate-900 rounded-2xl p-8 shadow-xl border border-cyan-500">
+    <div className="jd-match-card bg-slate-900 rounded-2xl p-8 shadow-xl border border-cyan-500">
 
       <h2 className="text-2xl font-bold text-cyan-400 mb-6">
         📋 Job Description Match
@@ -12,7 +12,7 @@ function JDMatchCard({ score }) {
           {score}%
         </div>
 
-        <p className="text-gray-400 mt-4">
+        <p className="jd-match-subtitle text-gray-400 mt-4">
           Resume Compatibility Score
         </p>
 

@@ -15,7 +15,7 @@ function ResumeResult({ data }) {
   if (!data) return null;
 
   return (
-    <div className="mt-10">
+    <div className="resume-result mt-10">
 
       <div className="mb-10">
 
@@ -25,7 +25,7 @@ function ResumeResult({ data }) {
 
         </h1>
 
-         <p className="text-gray-400 mt-4 text-lg">
+         <p className="resume-result-subtitle text-gray-400 mt-4 text-lg">
 
             Intelligent Resume Analysis • ATS Evaluation • AI Recommendations
 
@@ -53,7 +53,7 @@ function ResumeResult({ data }) {
 
         {/* Right Column */}
 
-        <div className="lg:col-span-2 bg-slate-900 rounded-2xl p-8 shadow-xl space-y-6">
+        <div className="resume-result-card lg:col-span-2 bg-slate-900 rounded-2xl p-8 shadow-xl space-y-6">
 
           <div className="flex flex-col items-center mb-8">
 
@@ -63,7 +63,7 @@ function ResumeResult({ data }) {
 
             </div>
 
-             <h2 className="text-3xl font-bold mt-5 text-white">
+             <h2 className="resume-candidate-name text-3xl font-bold mt-5 text-white">
               {data.name}
              </h2>
 
@@ -82,13 +82,13 @@ function ResumeResult({ data }) {
 
           <div className="grid md:grid-cols-2 gap-6">
 
-            <div className="bg-slate-800 rounded-2xl p-5 shadow-lg hover:shadow-cyan-500/20 transition duration-300">
+            <div className="resume-info-card bg-slate-800 rounded-2xl p-5 shadow-lg hover:shadow-cyan-500/20 transition duration-300">
 
               <h3 className="text-cyan-300 font-bold text-lg mb-2">
                 📧 Email
               </h3>
 
-              <p className="text-gray-300 break-all">
+              <p className="resume-info-text text-gray-300 break-all">
                 {data.email}
               </p>
 
@@ -101,7 +101,7 @@ function ResumeResult({ data }) {
                 📱 Phone
               </h3>
 
-              <p className="text-gray-300">
+              <p className="resume-info-text text-gray-300">
                 {data.phone}
               </p>
 
@@ -125,24 +125,24 @@ function ResumeResult({ data }) {
 
           </div>
 
-          <div className="border-t border-slate-700 pt-6">
+          <div className="resume-section border-t border-slate-700 pt-6">
             <h3 className="font-bold text-cyan-300 text-xl mb-3">
               🎓 Education
             </h3>
-            <p className="text-gray-300">
+            <p className="resume-content-text text-gray-300">
                {data.education}
             </p>
           </div>
 
           {/* Experience */}
 
-          <div className="border-t border-slate-700 pt-6">
+          <div className="resume-section border-t border-slate-700 pt-6">
             <h3 className="text-2xl font-bold text-cyan-300 mb-4">
               💼 Experience
             </h3>
 
-            <div className="bg-slate-800 rounded-xl p-5 shadow-lg">
-              <p className="text-gray-300 leading-8 whitespace-pre-line">
+            <div className="resume-content-card bg-slate-800 rounded-xl p-5 shadow-lg">
+              <p className="resume-content-text text-gray-300 leading-8 whitespace-pre-line">
                 {data.experience}
               </p>
             </div>
@@ -150,7 +150,7 @@ function ResumeResult({ data }) {
 
           {/* Projects */}
 
-          <div className="border-t border-slate-700 pt-6">
+          <div className="resume-section border-t border-slate-700 pt-6">
             <h3 className="text-2xl font-bold text-cyan-300 mb-4">
               📂 Projects
             </h3>
@@ -164,13 +164,13 @@ function ResumeResult({ data }) {
 
           {/* Summary */}
 
-          <div className="border-t border-slate-700 pt-6">
+          <div className="resume-section border-t border-slate-700 pt-6">
             <h3 className="text-2xl font-bold text-cyan-300 mb-4">
               📝 Professional Summary
             </h3>
 
             <div className="bg-slate-800 rounded-xl p-5 shadow-lg">
-              <p className="text-gray-300 leading-8">
+              <p className="resume-content-text text-gray-300 leading-8">
                 {data.summary}
               </p>
             </div>

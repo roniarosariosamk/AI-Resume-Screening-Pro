@@ -154,7 +154,7 @@ function UploadPage() {
 
   return (
 
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black p-8">
+    <div className="upload-page min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-black p-8">
 
       <div className="max-w-5xl mx-auto">
 
@@ -163,7 +163,7 @@ function UploadPage() {
             UPLOAD CARD
         ===================================================== */}
 
-        <div className="bg-slate-900/80 backdrop-blur-lg border border-slate-700 p-10 rounded-2xl shadow-xl">
+        <div className="upload-card bg-slate-900/80 backdrop-blur-lg border border-slate-700 p-10 rounded-2xl shadow-xl">
 
           <h1 className="text-4xl font-bold text-cyan-400 mb-8 text-center">
 
@@ -177,9 +177,9 @@ function UploadPage() {
 
             {/* Resume Upload */}
 
-            <div className="bg-slate-800 rounded-xl p-6">
+            <div className="upload-option-card bg-slate-800 rounded-xl p-6">
 
-              <h3 className="text-cyan-300 font-bold text-lg mb-4">
+              <h3 className="upload-option-title text-cyan-300 font-bold text-lg mb-4">
 
                 📄 Upload Resume
 
@@ -209,7 +209,7 @@ function UploadPage() {
                     {files.map((file, index) => (
                       <p
                         key={`${file.name}-${index}`}
-                        className="text-gray-300 text-sm"
+                        className="upload-file-name text-gray-300 text-sm"
                       >
                         📄 {index + 1}. {file.name}
                       </p>
@@ -225,9 +225,9 @@ function UploadPage() {
 
             {/* Job Description Upload */}
 
-            <div className="bg-slate-800 rounded-xl p-6">
+            <div className="upload-option-card bg-slate-800 rounded-xl p-6">
 
-              <h3 className="text-cyan-300 font-bold text-lg mb-4">
+              <h3 className="upload-option-title text-cyan-300 font-bold text-lg mb-4">
 
                 📋 Upload Job Description
 
@@ -266,7 +266,7 @@ function UploadPage() {
             <button
               onClick={handleUpload}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-4 rounded-xl text-lg font-bold hover:scale-105 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="upload-analyze-btn w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-4 rounded-xl text-lg font-bold hover:scale-105 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
 
               {loading
@@ -431,19 +431,19 @@ function UploadPage() {
 
       {selectedCandidate && (
 
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-6">
+        <div className="upload-modal-overlay fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-6">
 
 
           {/* Modal */}
 
-          <div className="bg-slate-950 border border-cyan-500 rounded-2xl w-full max-w-7xl max-h-[95vh] overflow-y-auto shadow-2xl">
+          <div className="upload-modal bg-slate-950 border border-cyan-500 rounded-2xl w-full max-w-7xl max-h-[95vh] overflow-y-auto shadow-2xl">
 
 
             {/* =================================================
                 MODAL HEADER
             ================================================= */}
 
-            <div className="sticky top-0 z-50 bg-slate-950 border-b border-slate-700 px-8 py-5 flex justify-between items-center">
+            <div className="upload-modal-header sticky top-0 z-50 bg-slate-950 border-b border-slate-700 px-8 py-5 flex justify-between items-center">
 
 
               <div>
@@ -455,7 +455,7 @@ function UploadPage() {
                 </h2>
 
 
-                <p className="text-gray-400 mt-1">
+                <p className="upload-modal-subtitle text-gray-400 mt-1">
 
                   Complete AI Resume Analysis
 

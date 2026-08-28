@@ -1944,3 +1944,520 @@ html.light .interview-input::-webkit-calendar-picker-indicator {
 html.dark .interview-input::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
+
+/* =====================================================
+   UPLOAD PAGE — THEME
+===================================================== */
+
+/* =========================
+   DARK MODE
+========================= */
+
+html.dark .upload-page {
+  background: linear-gradient(
+    135deg,
+    #020617,
+    #0f172a,
+    #000000
+  ) !important;
+}
+
+html.dark .upload-card {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+  border-color: #334155 !important;
+}
+
+html.dark .upload-option-card {
+  background-color: #1e293b !important;
+}
+
+html.dark .upload-option-title {
+  color: #67e8f9 !important;
+}
+
+html.dark .upload-file-name {
+  color: #cbd5e1 !important;
+}
+
+
+/* =========================
+   LIGHT MODE
+========================= */
+
+html.light .upload-page {
+  background: linear-gradient(
+    135deg,
+    #f8fafc,
+    #e0f2fe,
+    #ffffff
+  ) !important;
+}
+
+html.light .upload-card {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light .upload-option-card {
+  background-color: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+html.light .upload-option-title {
+  color: #0891b2 !important;
+}
+
+html.light .upload-file-name {
+  color: #334155 !important;
+}
+
+
+/* =========================
+   MAIN HEADING
+========================= */
+
+html.dark .upload-card h1 {
+  color: #22d3ee !important;
+}
+
+html.light .upload-card h1 {
+  color: #0891b2 !important;
+}
+
+
+/* =========================
+   FILE INPUT
+========================= */
+
+html.dark .upload-option-card input[type="file"] {
+  color: #ffffff !important;
+}
+
+html.light .upload-option-card input[type="file"] {
+  color: #334155 !important;
+}
+
+
+/* =========================
+   ANALYZE BUTTON
+========================= */
+
+.upload-analyze-btn {
+  color: #000000 !important;
+}
+
+html.dark .upload-analyze-btn {
+  color: #ffffff !important;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+html.dark .upload-modal {
+  background-color: #020617 !important;
+  border-color: #22d3ee !important;
+}
+
+html.light .upload-modal {
+  background-color: #ffffff !important;
+  border-color: #0891b2 !important;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25) !important;
+}
+
+
+/* =========================
+   MODAL HEADER
+========================= */
+
+html.dark .upload-modal-header {
+  background-color: #020617 !important;
+  border-color: #334155 !important;
+}
+
+html.light .upload-modal-header {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+
+/* =========================
+   MODAL TEXT
+========================= */
+
+html.dark .upload-modal-subtitle {
+  color: #94a3b8 !important;
+}
+
+html.light .upload-modal-subtitle {
+  color: #475569 !important;
+}
+
+
+/* =========================
+   OVERLAY
+========================= */
+
+html.light .upload-modal-overlay {
+  background-color: rgba(15, 23, 42, 0.55) !important;
+}
+
+/* =====================================================
+   RESUME RESULT — THEME
+===================================================== */
+
+/* =========================
+   MAIN CARD
+========================= */
+
+html.dark .resume-result-card {
+  background-color: #0f172a !important;
+}
+
+html.light .resume-result-card {
+  background-color: #ffffff !important;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08) !important;
+}
+
+
+/* =========================
+   SUBTITLE
+========================= */
+
+html.dark .resume-result-subtitle {
+  color: #94a3b8 !important;
+}
+
+html.light .resume-result-subtitle {
+  color: #475569 !important;
+}
+
+
+/* =========================
+   CANDIDATE NAME
+========================= */
+
+html.dark .resume-candidate-name {
+  color: #ffffff !important;
+}
+
+html.light .resume-candidate-name {
+  color: #0f172a !important;
+}
+
+
+/* =========================
+   INFO CARDS
+========================= */
+
+html.dark .resume-info-card {
+  background-color: #1e293b !important;
+}
+
+html.light .resume-info-card {
+  background-color: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+
+/* =========================
+   INFO TEXT
+========================= */
+
+html.dark .resume-info-text {
+  color: #cbd5e1 !important;
+}
+
+html.light .resume-info-text {
+  color: #334155 !important;
+}
+
+
+/* =========================
+   CONTENT CARDS
+========================= */
+
+html.dark .resume-content-card {
+  background-color: #1e293b !important;
+}
+
+html.light .resume-content-card {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+
+/* =========================
+   CONTENT TEXT
+========================= */
+
+html.dark .resume-content-text {
+  color: #cbd5e1 !important;
+}
+
+html.light .resume-content-text {
+  color: #334155 !important;
+}
+
+
+/* =========================
+   SECTION DIVIDERS
+========================= */
+
+html.dark .resume-section {
+  border-color: #334155 !important;
+}
+
+html.light .resume-section {
+  border-color: #cbd5e1 !important;
+}
+
+
+/* =========================
+   SECTION HEADINGS
+========================= */
+
+html.dark .resume-result-card h3 {
+  color: #67e8f9 !important;
+}
+
+html.light .resume-result-card h3 {
+  color: #0891b2 !important;
+}
+
+/* =====================================================
+   ATS SCORE
+===================================================== */
+
+html.dark .ats-score-card {
+  background-color: #0f172a !important;
+}
+
+html.light .ats-score-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* =====================================================
+   JD MATCH CARD
+===================================================== */
+
+html.dark .jd-match-card {
+  background-color: #0f172a !important;
+  border-color: #06b6d4 !important;
+}
+
+html.light .jd-match-card {
+  background-color: #ffffff !important;
+  border-color: #0891b2 !important;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.dark .jd-match-subtitle {
+  color: #94a3b8 !important;
+}
+
+html.light .jd-match-subtitle {
+  color: #475569 !important;
+}
+
+/* =====================================================
+   AI RECOMMENDATION CARD
+===================================================== */
+
+html.dark .recommendation-card {
+  background-color: #0f172a !important;
+}
+
+html.light .recommendation-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Confidence */
+
+html.dark .recommendation-value {
+  color: #ffffff !important;
+}
+
+html.light .recommendation-value {
+  color: #0f172a !important;
+}
+
+/* Reason */
+
+html.dark .recommendation-text {
+  color: #cbd5e1 !important;
+}
+
+html.light .recommendation-text {
+  color: #334155 !important;
+}
+
+/* =====================================================
+   MATCHED SKILLS
+===================================================== */
+
+html.dark .matched-skills-card {
+  background-color: #0f172a !important;
+}
+
+html.light .matched-skills-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Skill badges */
+
+html.dark .matched-skill-badge {
+  background-color: #16a34a !important;
+  color: #ffffff !important;
+}
+
+html.light .matched-skill-badge {
+  background-color: #16a34a !important;
+  color: #ffffff !important;
+}
+
+/* =====================================================
+   MISSING SKILLS
+===================================================== */
+
+html.dark .missing-skills-card {
+  background-color: #0f172a !important;
+}
+
+html.light .missing-skills-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Skill badges */
+
+html.dark .missing-skill-badge {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+html.light .missing-skill-badge {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+/* =====================================================
+   RESUME STRENGTHS
+===================================================== */
+
+html.dark .strength-card {
+  background-color: rgba(20, 83, 45, 0.30) !important;
+  border-color: #22c55e !important;
+}
+
+html.light .strength-card {
+  background-color: #f0fdf4 !important;
+  border-color: #22c55e !important;
+  box-shadow: 0 10px 30px rgba(22, 163, 74, 0.10) !important;
+}
+
+html.dark .strength-item {
+  background-color: rgba(34, 197, 94, 0.10) !important;
+  border-color: #16a34a !important;
+  color: #d1fae5 !important;
+}
+
+html.light .strength-item {
+  background-color: #dcfce7 !important;
+  border-color: #16a34a !important;
+  color: #166534 !important;
+}
+
+/* =====================================================
+   RESUME WEAKNESSES
+===================================================== */
+
+html.dark .weakness-card {
+  background-color: rgba(127, 29, 29, 0.30) !important;
+  border-color: #ef4444 !important;
+}
+
+html.light .weakness-card {
+  background-color: #fef2f2 !important;
+  border-color: #ef4444 !important;
+  box-shadow: 0 10px 30px rgba(220, 38, 38, 0.10) !important;
+}
+
+html.dark .weakness-item {
+  background-color: rgba(239, 68, 68, 0.10) !important;
+  border-color: #dc2626 !important;
+  color: #fecaca !important;
+}
+
+html.light .weakness-item {
+  background-color: #fee2e2 !important;
+  border-color: #dc2626 !important;
+  color: #991b1b !important;
+}
+
+/* =====================================================
+   IMPROVEMENT SUGGESTIONS
+===================================================== */
+
+html.dark .suggestion-card {
+  background-color: rgba(30, 58, 138, 0.30) !important;
+  border-color: #3b82f6 !important;
+}
+
+html.light .suggestion-card {
+  background-color: #eff6ff !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.10) !important;
+}
+
+html.dark .suggestion-item {
+  background-color: rgba(59, 130, 246, 0.10) !important;
+  border-color: #2563eb !important;
+  color: #dbeafe !important;
+}
+
+html.light .suggestion-item {
+  background-color: #dbeafe !important;
+  border-color: #2563eb !important;
+  color: #1e40af !important;
+}
+
+/* =====================================================
+   AI INTERVIEW QUESTIONS
+===================================================== */
+
+html.dark .interview-question-card {
+  background-color: #1e293b !important;
+}
+
+html.light .interview-question-card {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.dark .interview-question-text {
+  color: #cbd5e1 !important;
+}
+
+html.light .interview-question-text {
+  color: #334155 !important;
+}
+
+html.dark .interview-category {
+  background-color: #2563eb !important;
+}
+
+html.light .interview-category {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
