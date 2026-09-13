@@ -7,7 +7,21 @@ import {
     LogOut
 } from "lucide-react";
 
+import { useLocation, useNavigate } from "react-router-dom";
+
 function Sidebar() {
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleLogout = () => {
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("userEmail");
+
+        navigate("/login", { replace: true });
+
+    };
 
     return (
 
@@ -18,15 +32,11 @@ function Sidebar() {
             <div className="p-8">
 
                 <h1 className="text-3xl font-bold text-cyan-400">
-
                     AI Resume
-
                 </h1>
 
                 <p className="text-gray-500 text-sm">
-
                     Recruiter Portal
-
                 </p>
 
             </div>
@@ -38,27 +48,36 @@ function Sidebar() {
                 <SidebarItem
                     icon={<LayoutDashboard size={22} />}
                     title="Dashboard"
-                    active
+                    active={location.pathname === "/dashboard"}
+                    onClick={() => navigate("/dashboard")}
                 />
 
                 <SidebarItem
                     icon={<Users size={22} />}
                     title="Candidates"
+                    active={location.pathname === "/dashboard/candidates"}
+                    onClick={() => navigate("/dashboard/candidates")}
                 />
 
                 <SidebarItem
                     icon={<FileText size={22} />}
                     title="Resume Upload"
+                    active={location.pathname === "/upload"}
+                    onClick={() => navigate("/upload")}
                 />
 
                 <SidebarItem
                     icon={<BarChart3 size={22} />}
                     title="Analytics"
+                    active={location.pathname === "/dashboard/analytics"}
+                    onClick={() => navigate("/dashboard/analytics")}
                 />
 
                 <SidebarItem
                     icon={<Settings size={22} />}
                     title="Settings"
+                    active={location.pathname === "/dashboard/settings"}
+                    onClick={() => navigate("/dashboard/settings")}
                 />
 
             </div>
@@ -68,11 +87,9 @@ function Sidebar() {
             <div className="p-5">
 
                 <SidebarItem
-
                     icon={<LogOut size={22} />}
-
                     title="Logout"
-
+                    onClick={handleLogout}
                 />
 
             </div>
@@ -83,12 +100,12 @@ function Sidebar() {
 
 }
 
-function SidebarItem({ icon, title, active }) {
+function SidebarItem({ icon, title, active, onClick }) {
 
     return (
 
         <div
-
+            onClick={onClick}
             className={`
                 sidebar-item
                 flex
@@ -106,7 +123,6 @@ function SidebarItem({ icon, title, active }) {
                         : "text-gray-300 hover:bg-slate-800 hover:text-cyan-400"
                 }
             `}
-
         >
 
             {icon}

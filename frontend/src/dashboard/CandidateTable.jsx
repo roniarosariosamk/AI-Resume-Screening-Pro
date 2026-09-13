@@ -11,7 +11,6 @@ function CandidateTable({ candidates = [] }) {
 
             await toggleFavorite(id);
 
-            // Refresh to show updated favorite
             window.location.reload();
 
         } catch (error) {
@@ -32,171 +31,139 @@ function CandidateTable({ candidates = [] }) {
 
                     <tr>
 
-                        <th className="p-4 text-left">⭐</th>
+                        <th className="p-4 text-left">
+                            Candidate
+                        </th>
 
-                        <th className="p-4 text-left">Candidate</th>
+                        <th className="p-4 text-left">
+                            Email
+                        </th>
 
-                        <th className="p-4 text-left">Email</th>
+                        <th className="p-4 text-left">
+                            ATS Score
+                        </th>
 
-                        <th className="p-4 text-center">ATS</th>
+                        <th className="p-4 text-left">
+                            JD Match
+                        </th>
 
-                        <th className="p-4 text-center">JD Match</th>
+                        <th className="p-4 text-left">
+                            Status
+                        </th>
 
-                        <th className="p-4 text-center">Status</th>
+                        <th className="p-4 text-center">
+                            Favorite
+                        </th>
 
-                        <th className="p-4 text-center">Action</th>
+                        <th className="p-4 text-center">
+                            View
+                        </th>
 
                     </tr>
 
                 </thead>
 
-                <tbody classname="candidate-table-body">
+                <tbody>
 
-                    {candidates.map((candidate) => (
+                    {candidates.length === 0 ? (
 
-                        <tr
+                        <tr>
 
-                            key={candidate.id}
-
-                            className="candidate-table-row border-b border-slate-800 hover:bg-slate-800 transition-all"
-
-                        >
-
-                            {/* Favorite */}
-
-                            <td className="p-4">
-
-                                <button
-
-                                    onClick={() => handleFavorite(candidate.id)}
-
-                                >
-
-                                    <Star
-
-                                        size={22}
-
-                                        fill={
-                                            candidate.favorite === 1
-                                                ? "#facc15"
-                                                : "none"
-                                        }
-
-                                        color={
-                                            candidate.favorite === 1
-                                                ? "#facc15"
-                                                : "#94a3b8"
-                                        }
-
-                                    />
-
-                                </button>
-
-                            </td>
-
-                            {/* Name */}
-
-                            <td className="candidate-name p-4 font-semibold text-white">
-
-                                {candidate.name}
-
-                            </td>
-
-                            {/* Email */}
-
-                            <td className="candidate-email p-4 text-gray-300">
-
-                                {candidate.email}
-
-                            </td>
-
-                            {/* ATS */}
-
-                            <td className="p-4 text-center text-cyan-400 font-bold">
-
-                                {candidate.ats_score}%
-
-                            </td>
-
-                            {/* JD Match */}
-
-                            <td className="p-4 text-center text-green-400 font-bold">
-
-                                {candidate.jd_match_score}%
-
-                            </td>
-
-                            {/* Status */}
-
-                            <td className="p-4 text-center">
-
-                                <span
-
-                                    className={`
-
-                                        px-4
-
-                                        py-1
-
-                                        rounded-full
-
-                                        text-sm
-
-                                        font-semibold
-
-                                        ${
-
-                                            candidate.status === "Shortlisted"
-
-                                                ? "bg-green-500/20 text-green-400"
-
-                                            : candidate.status === "Rejected"
-
-                                                ? "bg-red-500/20 text-red-400"
-
-                                            : "bg-yellow-500/20 text-yellow-400"
-
-                                        }
-
-                                    `}
-
-                                >
-
-                                    {candidate.status}
-
-                                </span>
-
-                            </td>
-
-                            {/* View */}
-
-                            <td className="p-4 text-center">
-
-                                <Link
-
-                                    to={`/dashboard/candidate/${candidate.id}`}
-
-                                >
-
-                                    <button
-
-                                        className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 mx-auto transition-all"
-
-                                    >
-
-                                        <Eye size={18} />
-
-                                        View
-
-                                    </button>
-
-                                </Link>
-
+                            <td
+                                colSpan="7"
+                                className="p-8 text-center text-gray-400"
+                            >
+                                No candidates found.
                             </td>
 
                         </tr>
 
-                    ))}
+                    ) : (
+
+                        candidates.map((candidate) => (
+
+                            <tr
+                                key={candidate.id}
+                                className="border-t border-slate-800 hover:bg-slate-800 transition"
+                            >
+
+                                <td className="p-4 font-semibold text-white">
+                                    {candidate.name}
+                                </td>
+
+                                <td className="p-4 text-gray-400">
+                                    {candidate.email}
+                                </td>
+
+                                <td className="p-4">
+
+                                    <span className="text-cyan-400 font-bold">
+                                        {candidate.ats_score}%
+                                    </span>
+
+                                </td>
+
+                                <td className="p-4">
+
+                                    <span className="text-green-400 font-bold">
+                                        {candidate.jd_match_score}%
+                                    </span>
+
+                                </td>
+
+                                <td className="p-4">
+
+                                    <span className="text-gray-300">
+                                        {candidate.status}
+                                    </span>
+
+                                </td>
+
+                                <td className="p-4 text-center">
+
+                                    <button
+                                        onClick={() =>
+                                            handleFavorite(candidate.id)
+                                        }
+                                        className="hover:scale-110 transition"
+                                        title="Toggle Favorite"
+                                    >
+
+                                        <Star
+                                            size={22}
+                                            className={
+                                                candidate.favorite === 1
+                                                    ? "text-yellow-400 fill-yellow-400"
+                                                    : "text-gray-500"
+                                            }
+                                        />
+
+                                    </button>
+
+                                </td>
+
+                                <td className="p-4 text-center">
+
+                                    <Link
+                                        to={`/dashboard/candidate/${candidate.id}`}
+                                        className="inline-flex items-center justify-center"
+                                        title="View Candidate"
+                                    >
+
+                                        <Eye
+                                            size={22}
+                                            className="text-cyan-400 hover:text-cyan-300 transition"
+                                        />
+
+                                    </Link>
+
+                                </td>
+
+                            </tr>
+
+                        ))
+
+                    )}
 
                 </tbody>
 
