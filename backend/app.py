@@ -41,22 +41,22 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 # --------------------------------------------------
 # Directories
 # --------------------------------------------------
+
 BASE_DIR = Path(__file__).resolve().parent
 UPLOAD_DIR = BASE_DIR / "uploads"
-print("UPLOAD_DIR =", UPLOAD_DIR)
-BASE_DIR = Path(__file__).resolve().parent
-UPLOAD_DIR = BASE_DIR / "uploads"
-print("UPLOAD_DIR =", UPLOAD_DIR)
-print("EXISTS =", UPLOAD_DIR.exists())
+
+# Create uploads directory before mounting it
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
 app.mount(
     "/uploads",
     StaticFiles(directory=UPLOAD_DIR),
     name="uploads"
 )
-Base.metadata.create_all(bind=engine)
 # ===========================
 # Upload Folder
 # ===========================
