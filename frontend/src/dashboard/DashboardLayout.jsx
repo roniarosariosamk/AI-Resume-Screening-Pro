@@ -7,7 +7,7 @@ import DashboardContent from "./DashboardContent";
 import StatusChart from "./StatusChart";
 import ATSChart from "./ATSChart";
 
-import { getDashboardStats } from "../services/candidateService";
+import { getDashboardStats } from "../services/CandidateService";
 import HiringFunnel from "./HiringFunnel";
 import AIInsights from "./AIInsights";
 import TopCandidates from "./TopCandidates";

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import CandidateTable from "./CandidateTable";
-import { getAllCandidates } from "../services/candidateService";
+import { getAllCandidates } from "../services/CandidateService";
 
 function DashboardContent() {
 
