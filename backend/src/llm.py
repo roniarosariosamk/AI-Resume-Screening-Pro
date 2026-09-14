@@ -3,16 +3,18 @@ import json
 import re
 
 from dotenv import load_dotenv
-import google.generativeai as genai
+from google import genai
 
 # Load environment variables
 load_dotenv()
 
-# Configure Gemini
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+#Configure Gemini
+client = genai.Client(
+    api_key=os.getenv("GEMINI_API_KEY")
+)
 
 # Gemini Model
-model = genai.GenerativeModel("gemini-3.5-flash")
+MODEL_NAME = "gemini-3.5-flash"
 
 
 def analyze_resume(resume_text, jd_text):
@@ -73,15 +75,23 @@ Return exactly this JSON format:
     ]
 }}
 
-Also evaluate the resume against a typical Software Engineer / AI Engineer Job Description.
+Evaluate the resume ONLY against the Job Description provided below.
+
+IMPORTANT:
+- Do NOT use a generic Software Engineer, AI Engineer, Python Developer, or any other assumed job description.
+- The uploaded Job Description is the ONLY source of truth for JD matching.
+- Identify the important skills, qualifications, experience, responsibilities, and requirements from the provided JD.
+- Calculate jd_match_score based ONLY on how well the resume satisfies those requirements.
+- matched_skills must come from requirements explicitly present in the provided JD and supported by the resume.
+- missing_skills must come from important requirements explicitly present in the provided JD but not sufficiently demonstrated in the resume.
 
 Return:
 
-- jd_match_score (0–100)
+- jd_match_score (0-100)
 
 - matched_skills (4 to 8 important skills found in the resume)
 
-- missing_skills (4 to 8 important skills recruiters would expect but are missing)
+- missing_skills (4 to 8 important requirements from the provided Job Description that are missing or insufficiently demonstrated in the resume)
 
 Generate exactly:
 
@@ -168,7 +178,10 @@ Job Description:
 
     try:
 
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model=MODEL_NAME,
+            contents=prompt
+        )
 
         text = response.text.strip()
 

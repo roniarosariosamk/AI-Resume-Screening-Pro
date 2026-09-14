@@ -9,7 +9,20 @@ class Candidate(Base):
 
     __tablename__ = "candidates"
 
-    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, index=True)
+
+    id = sqlalchemy.Column(
+        sqlalchemy.Integer,
+        primary_key=True,
+        index=True
+    )
+
+    recruiter_id = sqlalchemy.Column(
+        sqlalchemy.Integer,
+        sqlalchemy.ForeignKey("recruiters.id"),
+        nullable=True,
+        index=True
+    )
+
 
     name = sqlalchemy.Column(sqlalchemy.String)
 

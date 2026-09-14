@@ -1,147 +1,257 @@
 import axios from "axios";
 import API_BASE_URL from "../api/api";
 
-// Get all candidates
+
+// ======================================================
+// AUTH HEADER
+// ======================================================
+
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+
+  return {
+    Authorization: `Bearer ${token}`,
+  };
+};
+
+
+// ======================================================
+// GET ALL CANDIDATES
+// ======================================================
+
 export const getAllCandidates = async () => {
-    const response = await axios.get(`${API_BASE_URL}/candidates`);
-    return response.data;
+  const response = await axios.get(
+    `${API_BASE_URL}/candidates`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+
+  return response.data;
 };
 
-// Get single candidate
-export const getCandidate = async (id) => {
-    const response = await axios.get(
-        `${API_BASE_URL}/candidate/${id}`
-    );
-    return response.data;
+
+// ======================================================
+// GET SINGLE CANDIDATE
+// ======================================================
+
+export const getCandidate = async (candidateId) => {
+  const response = await axios.get(
+    `${API_BASE_URL}/candidate/${candidateId}`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+
+  return response.data;
 };
 
-// Update candidate status
-export const updateCandidateStatus = async (id, status) => {
-    const response = await axios.put(
-        `${API_BASE_URL}/candidate/${id}/status`,
-        {
-            status
-        }
-    );
 
-    return response.data;
+// ======================================================
+// UPDATE CANDIDATE STATUS
+// ======================================================
+
+export const updateCandidateStatus = async (
+  candidateId,
+  status
+) => {
+  const response = await axios.put(
+    `${API_BASE_URL}/candidate/${candidateId}/status`,
+    {
+      status,
+    },
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+
+  return response.data;
 };
 
-// Update recruiter notes
-export const updateCandidateNotes = async (id, notes) => {
-    const response = await axios.put(
-        `${API_BASE_URL}/candidate/${id}/notes`,
-        {
-            notes
-        }
-    );
 
-    return response.data;
+// ======================================================
+// TOGGLE FAVORITE
+// ======================================================
+
+export const toggleFavorite = async (candidateId) => {
+  const response = await axios.put(
+    `${API_BASE_URL}/candidate/${candidateId}/favorite`,
+    {},
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+
+  return response.data;
 };
 
-// Dashboard statistics
+
+// ======================================================
+// UPDATE CANDIDATE NOTES
+// ======================================================
+
+export const updateCandidateNotes = async (
+  candidateId,
+  notes
+) => {
+  const response = await axios.put(
+    `${API_BASE_URL}/candidate/${candidateId}/notes`,
+    {
+      notes,
+    },
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+
+  return response.data;
+};
+
+
+// ======================================================
+// DASHBOARD STATS
+// ======================================================
+
 export const getDashboardStats = async () => {
-    const response = await axios.get(
-        `${API_BASE_URL}/dashboard-stats`
-    );
+  const response = await axios.get(
+    `${API_BASE_URL}/dashboard-stats`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
 
-    return response.data;
+  return response.data;
 };
 
-// Toggle favorite
-export const toggleFavorite = async (id) => {
-    const response = await axios.put(
-        `${API_BASE_URL}/candidate/${id}/favorite`
-    );
 
-    return response.data;
-};
+// ======================================================
+// ATS DISTRIBUTION
+// ======================================================
 
-// Schedule interview
-export const scheduleInterview = async (interviewData) => {
-    const response = await fetch(
-        `${API_BASE_URL}/interview`,
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(interviewData)
-        }
-    );
-
-    return await response.json();
-};
-
-// ATS distribution
 export const getATSDistribution = async () => {
-    const response = await fetch(
-        `${API_BASE_URL}/analytics/ats-distribution`
-    );
+  const response = await axios.get(
+    `${API_BASE_URL}/analytics/ats-distribution`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
 
-    return await response.json();
+  return response.data;
 };
 
-// AI hiring insights
-export const getHiringInsights = async () => {
-    const response = await fetch(
-        `${API_BASE_URL}/analytics/insights`
-    );
 
-    return await response.json();
-};
+// ======================================================
+// TOP CANDIDATES
+// ======================================================
 
-// Top candidates
 export const getTopCandidates = async () => {
-    const response = await fetch(
-        `${API_BASE_URL}/analytics/top-candidates`
-    );
+  const response = await axios.get(
+    `${API_BASE_URL}/analytics/top-candidates`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
 
-    return await response.json();
+  return response.data;
 };
 
-// Skills analytics
+
+// ======================================================
+// HIRING INSIGHTS
+// ======================================================
+
+export const getHiringInsights = async () => {
+  const response = await axios.get(
+    `${API_BASE_URL}/analytics/insights`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+
+  return response.data;
+};
+
+
+// ======================================================
+// SKILLS ANALYTICS
+// ======================================================
+
 export const getSkillsAnalytics = async () => {
-    const response = await fetch(
-        `${API_BASE_URL}/analytics/skills`
-    );
+  const response = await axios.get(
+    `${API_BASE_URL}/analytics/skills`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
 
-    return await response.json();
+  return response.data;
 };
 
-// Get interviews
+
+// ======================================================
+// INTERVIEWS
+// ======================================================
+
 export const getInterviews = async () => {
-    const response = await fetch(
-        `${API_BASE_URL}/interviews`
-    );
+  const response = await axios.get(
+    `${API_BASE_URL}/interviews`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
 
-    return await response.json();
+  return response.data;
 };
 
-// Update interview
-export const updateInterview = async (id, data) => {
-    const response = await fetch(
-        `${API_BASE_URL}/interview/${id}`,
-        {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        }
-    );
 
-    return await response.json();
+// ======================================================
+// SCHEDULE INTERVIEW
+// ======================================================
+
+export const scheduleInterview = async (interviewData) => {
+  const response = await axios.post(
+    `${API_BASE_URL}/interview`,
+    interviewData,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+
+  return response.data;
 };
 
-// Delete interview
-export const deleteInterview = async (id) => {
-    const response = await fetch(
-        `${API_BASE_URL}/interview/${id}`,
-        {
-            method: "DELETE"
-        }
-    );
 
-    return await response.json();
+// ======================================================
+// UPDATE INTERVIEW
+// ======================================================
+
+export const updateInterview = async (
+  interviewId,
+  interviewData
+) => {
+  const response = await axios.put(
+    `${API_BASE_URL}/interview/${interviewId}`,
+    interviewData,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+
+  return response.data;
+};
+
+
+// ======================================================
+// DELETE INTERVIEW
+// ======================================================
+
+export const deleteInterview = async (interviewId) => {
+  const response = await axios.delete(
+    `${API_BASE_URL}/interview/${interviewId}`,
+    {
+      headers: getAuthHeaders(),
+    }
+  );
+
+  return response.data;
 };

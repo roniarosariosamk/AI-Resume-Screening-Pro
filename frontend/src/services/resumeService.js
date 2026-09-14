@@ -1,59 +1,209 @@
 import axios from "axios";
 import API_BASE_URL from "../api/api";
 
-export const uploadResume = async (resumeFiles, jdFile) => {
-  const formData = new FormData();
+/* =========================================================
+   AUTH HEADERS
+========================================================= */
 
-  // Append all resumes
-  resumeFiles.forEach((file) => {
-    formData.append("resume", file);
-  });
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
 
-  // Append Job Description
-  formData.append("jd", jdFile);
-
-  const response = await axios.post(
-    `${API_BASE_URL}/upload`,
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
-
-  return response.data;
+  return {
+    Authorization: `Bearer ${token}`,
+  };
 };
 
-// ===========================
-// Download Candidate PDF Report
-// ===========================
+
+/* =========================================================
+   UPLOAD RESUME + JOB DESCRIPTION
+========================================================= */
+
+export const uploadResume = async (resumeFiles, jdFile) => {
+  try {
+    const formData = new FormData();
+
+    // Add resume files
+    resumeFiles.forEach((file) => {
+      formData.append("resume", file);
+    });
+
+    // Add job description
+    formData.append("jd", jdFile);
+
+    const response = await axios.post(
+      `${API_BASE_URL}/upload`,
+      formData,
+      {
+        headers: getAuthHeaders(),
+      }
+    );
+
+    return response.data;
+
+  } catch (error) {
+    console.error(
+      "Resume upload failed:",
+      error.response?.data || error.message
+    );
+
+    throw error;
+  }
+};
+
+
+/* =========================================================
+   DOWNLOAD PDF REPORT
+========================================================= */
 
 export const downloadReport = async (candidate) => {
-  const response = await axios.post(
-    `${API_BASE_URL}/download-report`,
-    candidate,
-    {
-      responseType: "blob",
-    }
-  );
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/download-report`,
+      {
+        candidate_id: candidate.id,
+      },
+      {
+        headers: {
+          ...getAuthHeaders(),
+          "Content-Type": "application/json",
+        },
+        responseType: "blob",
+      }
+    );
 
-  const url = window.URL.createObjectURL(new Blob([response.data]));
+    // Create downloadable file
+    const blob = new Blob([response.data], {
+      type: "application/pdf",
+    });
 
-  const link = document.createElement("a");
+    const url = window.URL.createObjectURL(blob);
 
-  link.href = url;
+    const link = document.createElement("a");
 
-  link.setAttribute(
-    "download",
-    `${candidate.name || "Candidate"}_Report.pdf`
-  );
+    link.href = url;
+    link.setAttribute(
+      "download",
+      `${candidate.name || "Candidate"}_Report.pdf`
+    );
 
-  document.body.appendChild(link);
+    document.body.appendChild(link);
 
-  link.click();
+    link.click();
 
-  link.remove();
+    link.remove();
 
-  window.URL.revokeObjectURL(url);
+    window.URL.revokeObjectURL(url);
+
+  } catch (error) {
+    console.error(
+      "PDF report download failed:",
+      error.response?.data || error.message
+    );
+
+    throw error;
+  }
+};
+
+
+/* =========================================================
+   DOWNLOAD CSV
+========================================================= */
+
+export const downloadCSV = async (candidates) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/download-csv`,
+      candidates,
+      {
+        headers: {
+          ...getAuthHeaders(),
+          "Content-Type": "application/json",
+        },
+        responseType: "blob",
+      }
+    );
+
+    const blob = new Blob([response.data], {
+      type: "text/csv",
+    });
+
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+
+    link.setAttribute(
+      "download",
+      "Resume_Screening_Results.csv"
+    );
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    window.URL.revokeObjectURL(url);
+
+  } catch (error) {
+    console.error(
+      "CSV download failed:",
+      error.response?.data || error.message
+    );
+
+    throw error;
+  }
+};
+
+
+/* =========================================================
+   DOWNLOAD EXCEL
+========================================================= */
+
+export const downloadExcel = async (candidates) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/download-excel`,
+      candidates,
+      {
+        headers: {
+          ...getAuthHeaders(),
+          "Content-Type": "application/json",
+        },
+        responseType: "blob",
+      }
+    );
+
+    const blob = new Blob([response.data], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+
+    link.setAttribute(
+      "download",
+      "Resume_Screening_Results.xlsx"
+    );
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    window.URL.revokeObjectURL(url);
+
+  } catch (error) {
+    console.error(
+      "Excel download failed:",
+      error.response?.data || error.message
+    );
+
+    throw error;
+  }
 };

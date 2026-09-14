@@ -2,30 +2,44 @@ import axios from "axios";
 import API_BASE_URL from "../api/api";
 
 export const downloadReport = async (candidate) => {
-  const response = await axios.post(
-    `${API_BASE_URL}/download-report`,
-    candidate,
-    {
-      responseType: "blob",
-    }
-  );
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/download-report`,
+      {
+        candidate_id: candidate.id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        responseType: "blob",
+      }
+    );
 
-  const url = window.URL.createObjectURL(
-    new Blob([response.data])
-  );
+    const blob = new Blob([response.data], {
+      type: "application/pdf",
+    });
 
-  const link = document.createElement("a");
+    const url = window.URL.createObjectURL(blob);
 
-  link.href = url;
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute(
+      "download",
+      `${candidate.name || "Candidate"}_Report.pdf`
+    );
 
-  link.setAttribute(
-    "download",
-    `${candidate.name}_AI_Report.pdf`
-  );
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
 
-  document.body.appendChild(link);
-
-  link.click();
-
-  link.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error(
+      "PDF download failed:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
 };

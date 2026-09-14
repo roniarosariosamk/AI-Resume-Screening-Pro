@@ -308,7 +308,9 @@ function UploadPage() {
 
               <button
                 onClick={() =>
-                  downloadCSV(result.candidates)
+                  downloadCSV(
+                    result.candidates.map((candidate) => candidate.id)
+                  )
                 }
                 className="bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition duration-300"
               >
@@ -320,7 +322,9 @@ function UploadPage() {
 
               <button
                 onClick={() =>
-                  downloadExcel(result.candidates)
+                  downloadExcel(
+                    result.candidates.map((candidate) => candidate.id)
+                  )
                 }
                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition duration-300"
               >
