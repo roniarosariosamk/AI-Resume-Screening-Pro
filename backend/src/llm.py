@@ -185,9 +185,6 @@ Job Description:
 
         text = response.text.strip()
 
-        print("\n========== GEMINI RAW RESPONSE ==========\n")
-        print(text)
-
         # Remove markdown if Gemini returns it
         text = text.replace("```json", "")
         text = text.replace("```", "")

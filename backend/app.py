@@ -1,6 +1,7 @@
 import json
 import os
 import shutil
+from uuid import uuid4
 from pathlib import Path
 from typing import List
 from fastapi import Depends, File, FastAPI, HTTPException, UploadFile
@@ -35,7 +36,6 @@ app = FastAPI(
 # CORS
 # --------------------------------------------------
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
-print("CORS FRONTEND_URL:", FRONTEND_URL)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[FRONTEND_URL],
@@ -54,11 +54,7 @@ UPLOAD_DIR = BASE_DIR / "uploads"
 # Create uploads directory before mounting it
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
-app.mount(
-    "/uploads",
-    StaticFiles(directory=UPLOAD_DIR),
-    name="uploads"
-)
+
 # ===========================
 # Upload Folder
 # ===========================
@@ -82,16 +78,61 @@ async def upload_resume(
     current_recruiter: Recruiter = Depends(get_current_recruiter)
 ):
     recruiter_id = int(current_recruiter.id)
+
+    # --------------------------------------------------
+    # Validate uploaded files
+    # --------------------------------------------------
+
+    for file in resume:
+        if file.content_type != "application/pdf":
+            raise HTTPException(
+                status_code=400,
+                detail="Only PDF resume files are allowed."
+            )
+
+    if jd.content_type != "application/pdf":
+        raise HTTPException(
+            status_code=400,
+            detail="Only PDF job description files are allowed."
+        )
     print("\n========== STEP 1 ==========")
     print("Upload received")
+
+    # -------------------------
+    # File Size Validation
+    # -------------------------
+    MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB
+
+    for file in resume:
+        file.file.seek(0, os.SEEK_END)
+        file_size = file.file.tell()
+        file.file.seek(0)
+
+        if file_size > MAX_FILE_SIZE:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Resume {file.filename} exceeds the 5 MB limit."
+            )
+
+    jd.file.seek(0, os.SEEK_END)
+    jd_size = jd.file.tell()
+    jd.file.seek(0)
+
+    if jd_size > MAX_FILE_SIZE:
+        raise HTTPException(
+            status_code=400,
+            detail="Job description exceeds the 5 MB limit."
+        )
     # -------------------------
     # Save Resume Files
     # -------------------------
     resume_paths = []
     for file in resume:
+        safe_filename = f"{uuid4()}_{os.path.basename(file.filename)}"
+
         file_path = os.path.join(
             UPLOAD_FOLDER,
-            file.filename
+            safe_filename
         )
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
@@ -99,9 +140,11 @@ async def upload_resume(
     # -------------------------
     # Save JD
     # -------------------------
+    safe_jd_filename = f"{uuid4()}_{os.path.basename(jd.filename)}"
+
     jd_path = os.path.join(
         UPLOAD_FOLDER,
-        jd.filename
+        safe_jd_filename
     )
     with open(jd_path, "wb") as buffer:
         shutil.copyfileobj(jd.file, buffer)
@@ -110,8 +153,8 @@ async def upload_resume(
     # Extract JD
     # -------------------------
     jd_text = extract_text(jd_path)
-    print("\n========== JOB DESCRIPTION ==========\n")
-    print(jd_text[:300])
+    print("Job description extracted successfully")
+
     # -------------------------
     # Analyze Every Resume
     # -------------------------
@@ -121,8 +164,7 @@ async def upload_resume(
         print("Analyzing:", os.path.basename(path))
         print("====================================")
         resume_text = extract_text(path)
-        print("\nResume Preview:\n")
-        print(resume_text[:300])
+        print("Resume extracted successfully")
         analysis = analyze_resume(
             resume_text,
             jd_text
@@ -197,15 +239,11 @@ async def upload_resume(
                 f"| ID: {new_candidate.id}"
             )
         print("✅ Candidates saved successfully!")
-    except Exception as e:
+    except Exception:
         db.rollback()
-        print("❌ Database Error:", e)
+        print("Database operation failed")
     finally:
         db.close()
-    return {
-        "total_candidates": len(all_results),
-        "candidates": all_results
-    }
     # -------------------------
     # Add Rank
     # -------------------------
@@ -273,6 +311,48 @@ async def upload_resume(
             for skill, count in top_missing_skills
         ]
     }
+
+    # ===========================
+# Protected Resume Download
+# ===========================
+@app.get("/candidate/{candidate_id}/resume")
+async def download_resume(
+    candidate_id: int,
+    current_recruiter: Recruiter = Depends(get_current_recruiter)
+):
+    db = SessionLocal()
+
+    try:
+        candidate = db.query(Candidate).filter(
+            Candidate.id == candidate_id,
+            Candidate.recruiter_id == current_recruiter.id
+        ).first()
+
+        if not candidate:
+            raise HTTPException(
+                status_code=404,
+                detail="Candidate not found"
+            )
+
+        file_path = os.path.join(
+            UPLOAD_FOLDER,
+            candidate.resume_file
+        )
+
+        if not os.path.exists(file_path):
+            raise HTTPException(
+                status_code=404,
+                detail="Resume file not found"
+            )
+
+        return FileResponse(
+            file_path,
+            media_type="application/pdf",
+            filename=candidate.resume_file
+        )
+
+    finally:
+        db.close()
 # ===========================
 # Download PDF Report
 # ===========================

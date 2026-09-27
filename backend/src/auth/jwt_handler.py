@@ -75,13 +75,9 @@ def verify_access_token(token: str):
             algorithms=[ALGORITHM]
         )
 
-        print("JWT VERIFIED")
-        print("JWT PAYLOAD:", payload)
-
         return payload
 
     except JWTError as e:
-        print("JWT DECODE FAILED:", type(e).__name__, str(e))
         return None
 
 # --------------------------------------------------
