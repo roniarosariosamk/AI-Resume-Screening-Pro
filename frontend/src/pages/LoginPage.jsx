@@ -163,6 +163,30 @@ function LoginPage() {
                         Login →
                     </button>
 
+                    {/* REGISTER SECTION */}
+
+                    <div className="text-center mt-6">
+
+                        <p className="text-gray-400 text-sm">
+                            New recruiter?
+                        </p>
+
+                        <button
+                            onClick={() => navigate("/register")}
+                            className="
+                            mt-2
+                            text-cyan-400
+                            hover:text-cyan-300
+                            font-semibold
+                            transition
+                            "
+                        >
+                            Create your recruiter account →
+                        </button>
+
+                    </div>
+
+
                     <p className="text-center text-gray-500 text-sm mt-8">
 
                         Secure Recruiter Portal • AI Resume Screening
