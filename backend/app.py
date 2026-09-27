@@ -24,6 +24,7 @@ from src.parser import extract_text
 from src.pdf_generator import generate_pdf
 from src.schemas import recruiter
 from src.schemas.recruiter import RecruiterLogin, RecruiterRegister
+Base.metadata.create_all(bind=engine)
 class CandidateReportRequest(BaseModel):
     candidate_id: int
 app = FastAPI(
@@ -34,6 +35,7 @@ app = FastAPI(
 # CORS
 # --------------------------------------------------
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+print("CORS FRONTEND_URL:", FRONTEND_URL)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[FRONTEND_URL],
