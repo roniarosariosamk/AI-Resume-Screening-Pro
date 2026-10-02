@@ -23,6 +23,12 @@ class Candidate(Base):
         index=True
     )
 
+    candidate_number = sqlalchemy.Column(
+        sqlalchemy.Integer,
+        nullable=True,
+        index=True
+    )
+
 
     name = sqlalchemy.Column(sqlalchemy.String)
 

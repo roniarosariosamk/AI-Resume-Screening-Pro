@@ -9,7 +9,6 @@ import ATSChart from "../components/ATSChart";
 import JDMatchPieChart from "../components/JDMatchPieChart";
 import TopCandidate from "../components/TopCandidate";
 import CandidateComparison from "../components/CandidateComparison";
-import TopSkills from "../components/TopSkills";
 import MissingSkillsAnalytics from "../components/MissingSkillsAnalytics";
 
 import { downloadCSV } from "../services/csvService";
@@ -346,24 +345,19 @@ function UploadPage() {
 
 
             {/* =================================================
-                TOP + MISSING SKILLS
+                  MISSING SKILLS
             ================================================= */}
 
             <div className="mt-8">
 
-              <TopSkills
-                skills={result.top_skills}
-              />
-
-
-              <MissingSkillsAnalytics
-                skills={result.top_missing_skills}
-              />
+                <MissingSkillsAnalytics
+                  skills={result.top_missing_skills}
+                />
 
             </div>
 
 
-            {/* =================================================
+             {/*=================================================
                 CHARTS
             ================================================= */}
 

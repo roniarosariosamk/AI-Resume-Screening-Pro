@@ -1,6 +1,7 @@
 import json
 import os
 import shutil
+import hashlib
 from uuid import uuid4
 from pathlib import Path
 from typing import List
@@ -25,6 +26,7 @@ from src.parser import extract_text
 from src.pdf_generator import generate_pdf
 from src.schemas import recruiter
 from src.schemas.recruiter import RecruiterLogin, RecruiterRegister
+from supabase_storage import supabase, BUCKET_NAME
 Base.metadata.create_all(bind=engine)
 class CandidateReportRequest(BaseModel):
     candidate_id: int
@@ -127,16 +129,69 @@ async def upload_resume(
     # Save Resume Files
     # -------------------------
     resume_paths = []
-    for file in resume:
-        safe_filename = f"{uuid4()}_{os.path.basename(file.filename)}"
 
-        file_path = os.path.join(
-            UPLOAD_FOLDER,
-            safe_filename
-        )
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
-        resume_paths.append(file_path)
+    db = SessionLocal()
+
+    try:
+        for file in resume:
+
+            # Read the complete PDF into memory
+            file.file.seek(0)
+            file_bytes = await file.read()
+
+            # Generate SHA-256 hash from the actual PDF content
+            file_hash = hashlib.sha256(file_bytes).hexdigest()
+
+            print(f"🔐 Resume hash: {file_hash}")
+
+            # Check whether this exact PDF was already uploaded
+            # by this recruiter.
+            existing_candidate = (
+                db.query(Candidate)
+                .filter(
+                    Candidate.recruiter_id == recruiter_id,
+                    Candidate.resume_file.like(f"sha256_{file_hash}_%")
+                )
+                .first()
+            )
+
+            if existing_candidate:
+                raise HTTPException(
+                    status_code=409,
+                    detail=(
+                        f"This resume has already been uploaded: "
+                        f"{existing_candidate.name or file.filename}"
+                    )
+                )
+
+            # Keep original filename safe
+            original_filename = os.path.basename(file.filename)
+
+            # Store hash + UUID + original filename
+            safe_filename = (
+                f"sha256_{file_hash}_{uuid4()}_{original_filename}"
+            )
+
+            file_path = os.path.join(UPLOAD_FOLDER, safe_filename)
+
+            # Save locally
+            with open(file_path, "wb") as buffer:
+                buffer.write(file_bytes)
+
+            resume_paths.append(file_path)
+
+            # Upload exact same bytes to Supabase
+            supabase.storage.from_(BUCKET_NAME).upload(
+                safe_filename,
+                file_bytes,
+                {"content-type": "application/pdf"}
+            )
+
+            print(f"☁️ Uploaded to Supabase: {safe_filename}")
+
+    finally:
+        db.close()
+
     # -------------------------
     # Save JD
     # -------------------------
@@ -148,7 +203,19 @@ async def upload_resume(
     )
     with open(jd_path, "wb") as buffer:
         shutil.copyfileobj(jd.file, buffer)
-    print("Files saved successfully")
+
+    # Upload JD to Supabase Storage
+    with open(jd_path, "rb") as file_data:
+        supabase.storage.from_(BUCKET_NAME).upload(
+            safe_jd_filename,
+            file_data,
+            {
+                "content-type": "application/pdf"
+            }
+       )
+
+    print("☁️ Resume and JD uploaded to Supabase successfully")
+    
     # -------------------------
     # Extract JD
     # -------------------------
@@ -172,6 +239,15 @@ async def upload_resume(
         # Store filename
         analysis["resume_file"] = os.path.basename(path)
         all_results.append(analysis)
+
+    # -------------------------
+    # Remove failed AI analyses
+    # -------------------------
+    all_results = [
+        result for result in all_results
+        if result.get("success", True) and result.get("name")
+    ]
+
     # -------------------------
     # Rank Candidates
     # -------------------------
@@ -185,6 +261,22 @@ async def upload_resume(
     db = SessionLocal()
     try:
         for candidate in all_results:
+
+            # -------------------------
+            # Generate Candidate Number
+            # -------------------------
+            last_candidate_number = (
+                db.query(Candidate.candidate_number)
+                .filter(Candidate.recruiter_id == recruiter_id)
+                .order_by(Candidate.candidate_number.desc())
+                .first()
+           )
+
+            next_candidate_number = (
+                last_candidate_number[0] + 1
+                if last_candidate_number
+                else 1
+            )
             # -------------------------
             # Validate AI Analysis
             # -------------------------
@@ -205,6 +297,7 @@ async def upload_resume(
                 continue
             new_candidate = Candidate(
                 recruiter_id=recruiter_id,
+                candidate_number=next_candidate_number,
                 name=candidate.get("name"),
                 email=candidate.get("email"),
                 phone=candidate.get("phone"),
@@ -260,20 +353,6 @@ async def upload_resume(
             f"JD Match: {candidate.get('jd_match_score',0)}%"
         )
     # -------------------------
-    # Skill Analytics
-    # -------------------------
-    skill_count = {}
-    for candidate in all_results:
-        for skill in candidate.get("skills", []):
-            skill = skill.strip()
-            if skill:
-                skill_count[skill] = skill_count.get(skill, 0) + 1
-    top_skills = sorted(
-        skill_count.items(),
-        key=lambda x: x[1],
-        reverse=True
-    )
-    # -------------------------
     # Missing Skills Analytics
     # -------------------------
     missing_skill_count = {}
@@ -296,13 +375,7 @@ async def upload_resume(
         "success": True,
         "total_candidates": len(all_results),
         "candidates": all_results,
-        "top_skills": [
-            {
-                "skill": skill,
-                "count": count
-            }
-            for skill, count in top_skills
-        ],
+       
          "top_missing_skills": [
             {
                 "skill": skill,
@@ -312,10 +385,10 @@ async def upload_resume(
         ]
     }
 
-    # ===========================
+# ===========================
 # Protected Resume Download
 # ===========================
-@app.get("/candidate/{candidate_id}/resume")
+@app.get("/download-resume/{candidate_id}")
 async def download_resume(
     candidate_id: int,
     current_recruiter: Recruiter = Depends(get_current_recruiter)
@@ -334,21 +407,36 @@ async def download_resume(
                 detail="Candidate not found"
             )
 
-        file_path = os.path.join(
-            UPLOAD_FOLDER,
-            candidate.resume_file
-        )
-
-        if not os.path.exists(file_path):
+        # Legacy resume protection
+        # Old candidates may have only the original filename
+        # instead of the unique Supabase object name.
+        if not candidate.resume_file or candidate.resume_file.startswith("Resume"):
             raise HTTPException(
                 status_code=404,
-                detail="Resume file not found"
+                detail="This candidate's resume is from an older upload and is not available in cloud storage."
             )
 
-        return FileResponse(
-            file_path,
+        try:
+            file_data = supabase.storage.from_(BUCKET_NAME).download(
+                candidate.resume_file
+            )
+        except Exception as storage_error:
+            print("❌ Supabase download error:", storage_error)
+            raise HTTPException(
+                status_code=404,
+                detail="Resume file not found in storage"
+            )
+
+        from fastapi.responses import Response
+
+        return Response(
+            content=file_data,
             media_type="application/pdf",
-            filename=candidate.resume_file
+            headers={
+                "Content-Disposition": (
+                    f'inline; filename="{candidate.resume_file}"'
+                )
+            }
         )
 
     finally:

@@ -88,7 +88,15 @@ function CandidateTable({ candidates = [] }) {
                             >
 
                                 <td className="p-4 font-semibold text-white">
-                                    {candidate.name}
+                                    <div>
+                                        <div className="text-cyan-400 text-sm font-bold">
+                                            Candidate #{candidate.candidate_number}
+                                        </div>
+
+                                        <div>
+                                            {candidate.name}
+                                        </div>
+                                    </div>
                                 </td>
 
                                 <td className="p-4 text-gray-400">
@@ -158,7 +166,6 @@ function CandidateTable({ candidates = [] }) {
                                     </Link>
 
                                 </td>
-
                             </tr>
 
                         ))

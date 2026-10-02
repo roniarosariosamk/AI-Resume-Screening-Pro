@@ -17,7 +17,7 @@ import {
     updateInterview
 } from "../services/CandidateService";
 import toast from "react-hot-toast";
-import API_BASE_URL from "../api/api";
+import axiosInstance from "../services/axiosInstance";
 
 function CandidateDetails() {
 
@@ -208,6 +208,68 @@ function CandidateDetails() {
 
     };
 
+    const handleOpenResume = async () => {
+    try {
+        const response = await axiosInstance.get(
+            `/download-resume/${candidate.id}`,
+            {
+                responseType: "blob",
+            }
+        );
+
+        // Create a temporary browser URL for the PDF
+        const fileURL = window.URL.createObjectURL(
+            new Blob([response.data], {
+                type: "application/pdf",
+            })
+        );
+
+        // Open the PDF in a new tab
+        window.open(fileURL, "_blank");
+
+        // Clean up the temporary URL later
+        setTimeout(() => {
+            window.URL.revokeObjectURL(fileURL);
+        }, 60000);
+
+    } catch (error) {
+        console.error("Resume download failed:", error);
+
+        if (error.response?.status === 401) {
+            toast.error(
+                "Your session has expired. Please login again."
+            );
+        } else if (error.response?.status === 403) {
+            toast.error(
+                "You do not have permission to access this resume."
+            );
+        } else if (error.response?.status === 404) {
+            // Backend sends the exact reason
+            if (error.response?.data instanceof Blob) {
+                try {
+                    const text = await error.response.data.text();
+                    const data = JSON.parse(text);
+
+                    toast.error(
+                        data.detail || "Resume not found."
+                    );
+                } catch {
+                    toast.error("Resume not found.");
+                }
+            } else {
+                toast.error(
+                    error.response?.data?.detail ||
+                    "Resume not found."
+                );
+            }
+        } else {
+            toast.error(
+                "Unable to open resume. Please try again."
+            );
+        }
+    }
+};
+
     if (!candidate) {
 
         return (
@@ -243,6 +305,13 @@ function CandidateDetails() {
                             onClick={() => setShowInterviewModal(true)}
                         >
                             📅 Schedule Interview
+                        </button>
+
+                        <button
+                            className="bg-slate-600 hover:bg-slate-700 text-white px-5 py-2 rounded-lg transition-all"
+                            onClick={handleOpenResume}
+                        >
+                            📄 Open Resume
                         </button>
 
                     </div>
@@ -821,14 +890,8 @@ function CandidateDetails() {
 
                         </h2>
 
-                        <a
-
-                            href={`${API_BASE_URL}/uploads/${candidate.resume_file}`}
-
-                            target="_blank"
-
-                            rel="noopener noreferrer"
-
+                        <button
+                            onClick={handleOpenResume}
                             className="
                                 inline-flex
                                 items-center
@@ -841,13 +904,10 @@ function CandidateDetails() {
                                 font-semibold
                                 transition-all
                                 duration-300
-                            "
-
-                        >
-
-                            📄 Open Resume
-
-                        </a>
+                        "
+                    >                        
+                        📄 Open Resume
+                    </button>
 
                     </div>
 

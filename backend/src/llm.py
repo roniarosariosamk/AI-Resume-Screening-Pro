@@ -2,6 +2,7 @@ import os
 import json
 import re
 
+from click import prompt
 from dotenv import load_dotenv
 from google import genai
 
@@ -14,7 +15,9 @@ client = genai.Client(
 )
 
 # Gemini Model
-MODEL_NAME = "gemini-3.5-flash"
+MODEL_NAME = "gemini-3.6-flash"
+
+print("🔥 GEMINI MODEL =", MODEL_NAME)
 
 
 def analyze_resume(resume_text, jd_text):
@@ -177,11 +180,36 @@ Job Description:
 """
 
     try:
+        # Retry Gemini request if the service temporarily returns 503
+        response = None
 
-        response = client.models.generate_content(
-            model=MODEL_NAME,
-            contents=prompt
-        )
+        for attempt in range(5):
+            try:
+                response = client.models.generate_content(
+                    model=MODEL_NAME,
+                    contents=prompt
+                )
+                break
+
+            except Exception as api_error:
+                error_text = str(api_error)
+
+                if "503" in error_text and attempt < 4:
+                    import time
+
+                    wait_time = 2 ** (attempt + 1)
+
+                    print(
+                        f"⚠️ Gemini temporarily unavailable. "
+                        f"Retrying in {wait_time} seconds..."
+                    )
+
+                    time.sleep(wait_time)
+                else:
+                    raise
+
+        if response is None:
+            raise Exception("Gemini failed after 5 attempts.")
 
         text = response.text.strip()
 
@@ -213,58 +241,24 @@ Job Description:
         result.setdefault("projects", "")
         result.setdefault("summary", "")
         result.setdefault("ats_score", 0)
-
         result.setdefault("jd_match_score", 0)
-
         result.setdefault("hiring_recommendation", "")
         result.setdefault("confidence", 0)
         result.setdefault("recommendation_reason", "")
-
         result.setdefault("matched_skills", [])
-
         result.setdefault("missing_skills", [])
-
         result.setdefault("strengths", [])
-
         result.setdefault("weaknesses", [])
-
         result.setdefault("suggestions", [])
-
         result.setdefault("interview_questions", [])
 
         return result
 
     except Exception as e:
-
         print("\n========== GEMINI ERROR ==========\n")
         print(str(e))
 
         return {
-            "name": "",
-            "email": "",
-            "phone": "",
-            "skills": [],
-            "education": "",
-            "experience": "",
-            "projects": "",
-            "summary": "",
-            "ats_score": 0,
-
-            "jd_match_score": 0,
-
-            "hiring_recommendation": "",
-            "confidence": 0,
-            "recommendation_reason": "",
-
-            "matched_skills": [],
-            "missing_skills": [],
-
-            "strengths": [],
-            "weaknesses": [],
-            "suggestions": [],
-
-            "interview_questions": [],
-
             "success": False,
             "error": str(e)
         }
