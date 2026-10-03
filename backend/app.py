@@ -1153,27 +1153,33 @@ def skills_analytics(
             .filter(Candidate.recruiter_id == current_recruiter.id)
             .all()
         )
+
         skill_counts = {}
         missing_skill_counts = {}
+
         for candidate in candidates:
             if candidate.matched_skills:
-                skills = [
-                    skill.strip()
-                    for skill in candidate.matched_skills.split(",")
-                    if skill.strip()
-                ]
+                skills = json.loads(candidate.matched_skills or "[]")
+
                 for skill in skills:
-                    skill_counts[skill] = skill_counts.get(skill, 0) + 1
+                    skill = skill.strip()
+
+                    if skill:
+                        skill_counts[skill] = (
+                            skill_counts.get(skill, 0) + 1
+                        )
+
             if candidate.missing_skills:
-                missing = [
-                    skill.strip()
-                    for skill in candidate.missing_skills.split(",")
-                    if skill.strip()
-                ]
+                missing = json.loads(candidate.missing_skills or "[]")
+
                 for skill in missing:
-                    missing_skill_counts[skill] = (
-                        missing_skill_counts.get(skill, 0) + 1
-                    )
+                    skill = skill.strip()
+
+                    if skill:
+                        missing_skill_counts[skill] = (
+                            missing_skill_counts.get(skill, 0) + 1
+                        )
+
         common_skills = sorted(
             skill_counts.items(),
             key=lambda x: x[1],

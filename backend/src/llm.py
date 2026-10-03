@@ -252,6 +252,21 @@ Job Description:
         result.setdefault("suggestions", [])
         result.setdefault("interview_questions", [])
 
+
+        # Validate AI-generated numeric scores
+        for score_field in [
+            "ats_score",
+            "jd_match_score",
+            "confidence"
+        ]:
+            try:
+                result[score_field] = max(
+                    0,
+                    min(100, float(result[score_field]))
+                )
+            except (TypeError, ValueError):
+                result[score_field] = 0
+
         return result
 
     except Exception as e:

@@ -1,16 +1,26 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, Field
 
 
 class RecruiterRegister(BaseModel):
 
-    name: str
+    name: str = Field(
+        min_length=2,
+        max_length=100
+    )
 
-    email: str
+    email: EmailStr
 
-    password: str
+    password: str = Field(
+        min_length=8,
+        max_length=128
+    )
+
 
 class RecruiterLogin(BaseModel):
 
-    email: str
+    email: EmailStr
 
-    password: str   
+    password: str = Field(
+        min_length=8,
+        max_length=128
+    )
