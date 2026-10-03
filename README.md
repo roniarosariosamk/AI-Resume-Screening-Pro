@@ -17,7 +17,7 @@ https://ai-resume-screening-pro-11.onrender.com/docs
 
 ##  Overview
 
-AI Resume Screening Pro is a full-stack recruitment platform designed to reduce the manual effort involved in screening candidates.
+AI Resume Screening Pro is a  full-stack recruitment platform designed to reduce the manual effort involved in screening candidates.
 
 Recruiters can upload resumes and job descriptions, and the system uses AI to analyze candidate profiles and generate structured insights such as:
 
