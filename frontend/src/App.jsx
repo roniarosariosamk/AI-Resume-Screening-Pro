@@ -8,8 +8,8 @@ import Features from "./components/Features";
 import Navbar from "./components/Navbar";
 import Stats from "./components/Stats";
 import HowItWorks from "./components/HowItWorks";
-
 import Upload from "./pages/Upload";
+
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 
@@ -20,6 +20,7 @@ import CandidateDetails from "./dashboard/CandidateDetails";
 import DashboardContent from "./dashboard/DashboardContent";
 import ATSChart from "./dashboard/ATSChart";
 import SkillsAnalytics from "./dashboard/SkillsAnalytics";
+
 
 function Home() {
     return (
@@ -51,7 +52,6 @@ function Home() {
 function CandidatesPage() {
     return (
         <div className="min-h-screen bg-slate-950 text-white">
-
             <div className="p-8">
 
                 <h1 className="text-4xl font-bold text-white">
@@ -65,7 +65,6 @@ function CandidatesPage() {
                 <DashboardContent />
 
             </div>
-
         </div>
     );
 }
@@ -78,7 +77,6 @@ function CandidatesPage() {
 function AnalyticsPage() {
     return (
         <div className="min-h-screen bg-slate-950 text-white">
-
             <div className="p-8">
 
                 <h1 className="text-4xl font-bold text-white">
@@ -94,7 +92,6 @@ function AnalyticsPage() {
                 <SkillsAnalytics />
 
             </div>
-
         </div>
     );
 }
@@ -107,7 +104,6 @@ function AnalyticsPage() {
 function SettingsPage() {
     return (
         <div className="min-h-screen bg-slate-950 text-white">
-
             <div className="p-8">
 
                 <h1 className="text-4xl font-bold text-white">
@@ -131,7 +127,6 @@ function SettingsPage() {
                 </div>
 
             </div>
-
         </div>
     );
 }
@@ -144,8 +139,8 @@ function SettingsPage() {
 function App() {
 
     return (
-
         <ThemeProvider>
+
             <SpeedInsights />
 
             <Routes>
@@ -245,7 +240,6 @@ function App() {
             </Routes>
 
         </ThemeProvider>
-
     );
 }
 

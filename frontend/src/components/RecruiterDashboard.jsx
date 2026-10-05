@@ -22,6 +22,10 @@ function RecruiterDashboard({
 
   const handleStatusUpdate = async (candidate, status) => {
 
+    
+    console.log("CANDIDATE OBJECT:", candidate);
+    console.log("CANDIDATE KEYS:", Object.keys(candidate));
+
     try {
 
         await updateCandidateStatus(candidate.id, status);
