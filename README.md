@@ -13,6 +13,24 @@ https://ai-resume-screening-pro-11.onrender.com/
 **API Documentation:**  
 https://ai-resume-screening-pro-11.onrender.com/docs
 
+## Screenshots
+
+### Landing Page
+![Landing Page](D:\Projects\AI-Resume-Screening-Pro\screenshots\landing-page.png
+)
+
+### AI Resume Analysis
+![Resume Analysis](screenshots/resume-analysis.png)
+
+### AI Candidate Insights
+![AI Insights](screenshots/ai-insights.png)
+
+### Hiring Recommendation
+![Hiring Recommendation](screenshots/hiring-recommendation.png)
+
+### Login
+![Login](screenshots/login.png)
+
 ---
 
 ##  Overview
@@ -565,7 +583,7 @@ Tested functionality includes:
 The production-tested release is:
 
 ```text
-v1.1.0
+v1.0.0
 ```
 
 ---
