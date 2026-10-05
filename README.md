@@ -16,8 +16,7 @@ https://ai-resume-screening-pro-11.onrender.com/docs
 ## Screenshots
 
 ### Landing Page
-![Landing Page](D:\Projects\AI-Resume-Screening-Pro\screenshots\landing-page.png
-)
+![Landing Page](screenshots\landing-page.png)
 
 ### AI Resume Analysis
 ![Resume Analysis](screenshots/resume-analysis.png)
