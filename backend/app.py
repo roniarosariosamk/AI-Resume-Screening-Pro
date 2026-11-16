@@ -30,6 +30,37 @@ from supabase_storage import supabase, BUCKET_NAME
 Base.metadata.create_all(bind=engine)
 class CandidateReportRequest(BaseModel):
     candidate_id: int
+
+
+def _safe_json_list(value: object, default: list | None = None) -> list:
+    if value is None:
+        return default if default is not None else []
+    if isinstance(value, list):
+        return value
+    if isinstance(value, tuple):
+        return list(value)
+    if isinstance(value, str):
+        try:
+            parsed = json.loads(value)
+            return parsed if isinstance(parsed, list) else (
+                default if default is not None else []
+            )
+        except (TypeError, ValueError):
+            return default if default is not None else []
+    return default if default is not None else []
+
+
+def _safe_float(value: object, default: float = 0.0) -> float:
+    if value is None:
+        return default
+    if isinstance(value, (int, float, str, bytes)):
+        try:
+            return float(value)
+        except (TypeError, ValueError):
+            return default
+    return default
+
+
 app = FastAPI(
     title="AI Resume Screening API",
     version="2.0.0"
@@ -79,7 +110,7 @@ async def upload_resume(
     jd: UploadFile = File(...),
     current_recruiter: Recruiter = Depends(get_current_recruiter)
 ):
-    recruiter_id = int(current_recruiter.id)
+    recruiter_id = int(getattr(current_recruiter, "id"))
 
     # --------------------------------------------------
     # Validate uploaded files
@@ -165,7 +196,7 @@ async def upload_resume(
                 )
 
             # Keep original filename safe
-            original_filename = os.path.basename(file.filename)
+            original_filename = os.path.basename(file.filename or "resume.pdf")
 
             # Store hash + UUID + original filename
             safe_filename = (
@@ -195,7 +226,7 @@ async def upload_resume(
     # -------------------------
     # Save JD
     # -------------------------
-    safe_jd_filename = f"{uuid4()}_{os.path.basename(jd.filename)}"
+    safe_jd_filename = f"{uuid4()}_{os.path.basename(jd.filename or 'job_description.pdf')}"
 
     jd_path = os.path.join(
         UPLOAD_FOLDER,
@@ -252,7 +283,7 @@ async def upload_resume(
     # Rank Candidates
     # -------------------------
     all_results.sort(
-        key=lambda x: x.get("jd_match_score", 0),
+        key=lambda x: _safe_float(x.get("jd_match_score")),
         reverse=True
     )
     # -------------------------
@@ -301,7 +332,7 @@ async def upload_resume(
                 name=candidate.get("name"),
                 email=candidate.get("email"),
                 phone=candidate.get("phone"),
-                skills=json.dumps(candidate.get("skills", [])),
+                skills=json.dumps(_safe_json_list(candidate.get("skills"))),
                 education=candidate.get("education"),
                 experience=candidate.get("experience"),
                 projects=candidate.get("projects"),
@@ -311,13 +342,13 @@ async def upload_resume(
                 recommendation=candidate.get("hiring_recommendation"),
                 confidence=candidate.get("confidence"),
                 recommendation_reason=candidate.get("recommendation_reason"),
-                matched_skills=json.dumps(candidate.get("matched_skills", [])),
-                missing_skills=json.dumps(candidate.get("missing_skills", [])),
-                strengths=json.dumps(candidate.get("strengths", [])),
-                weaknesses=json.dumps(candidate.get("weaknesses", [])),
-                suggestions=json.dumps(candidate.get("suggestions", [])),
+                matched_skills=json.dumps(_safe_json_list(candidate.get("matched_skills"))),
+                missing_skills=json.dumps(_safe_json_list(candidate.get("missing_skills"))),
+                strengths=json.dumps(_safe_json_list(candidate.get("strengths"))),
+                weaknesses=json.dumps(_safe_json_list(candidate.get("weaknesses"))),
+                suggestions=json.dumps(_safe_json_list(candidate.get("suggestions"))),
                 interview_questions=json.dumps(
-                    candidate.get("interview_questions", [])
+                    _safe_json_list(candidate.get("interview_questions"))
                 ),
                 resume_file=candidate.get("resume_file")
             )
@@ -332,9 +363,13 @@ async def upload_resume(
                 f"| ID: {new_candidate.id}"
             )
         print("✅ Candidates saved successfully!")
-    except Exception:
+    except Exception as exc:
         db.rollback()
-        print("Database operation failed")
+        print(f"❌ Database operation failed: {exc}")
+        raise HTTPException(
+            status_code=500,
+            detail="Candidate analysis completed, but saving candidates to the database failed."
+        ) from exc
     finally:
         db.close()
     # -------------------------
@@ -357,7 +392,9 @@ async def upload_resume(
     # -------------------------
     missing_skill_count = {}
     for candidate in all_results:
-        for skill in candidate.get("missing_skills", []):
+        for skill in _safe_json_list(candidate.get("missing_skills")):
+            if not isinstance(skill, str):
+                continue
             skill = skill.strip()
             if skill:
                 missing_skill_count[skill] = (
@@ -410,7 +447,8 @@ async def download_resume(
         # Legacy resume protection
         # Old candidates may have only the original filename
         # instead of the unique Supabase object name.
-        if not candidate.resume_file or candidate.resume_file.startswith("Resume"):
+        resume_file = getattr(candidate, "resume_file", None)
+        if not isinstance(resume_file, str) or not resume_file or resume_file.startswith("Resume"):
             raise HTTPException(
                 status_code=404,
                 detail="This candidate's resume is from an older upload and is not available in cloud storage."
@@ -418,7 +456,7 @@ async def download_resume(
 
         try:
             file_data = supabase.storage.from_(BUCKET_NAME).download(
-                candidate.resume_file
+                resume_file
             )
         except Exception as storage_error:
             print("❌ Supabase download error:", storage_error)
@@ -434,7 +472,7 @@ async def download_resume(
             media_type="application/pdf",
             headers={
                 "Content-Disposition": (
-                    f'inline; filename="{candidate.resume_file}"'
+                    f'inline; filename="{resume_file}"'
                 )
             }
         )
@@ -468,7 +506,7 @@ async def download_report(
             "name": candidate.name or "",
             "email": candidate.email or "",
             "phone": candidate.phone or "",
-            "skills": json.loads(candidate.skills or "[]"),
+            "skills": _safe_json_list(candidate.skills),
             "education": candidate.education or "",
             "experience": candidate.experience or "",
             "projects": candidate.projects or "",
@@ -477,14 +515,12 @@ async def download_report(
             "recommendation": candidate.recommendation or "",
             "confidence": candidate.confidence or 0,
             "recommendation_reason": candidate.recommendation_reason or "",
-            "matched_skills": json.loads(candidate.matched_skills or "[]"),
-            "missing_skills": json.loads(candidate.missing_skills or "[]"),
-            "strengths": json.loads(candidate.strengths or "[]"),
-            "weaknesses": json.loads(candidate.weaknesses or "[]"),
-            "suggestions": json.loads(candidate.suggestions or "[]"),
-            "interview_questions": json.loads(
-                candidate.interview_questions or "[]"
-            ),
+            "matched_skills": _safe_json_list(candidate.matched_skills),
+            "missing_skills": _safe_json_list(candidate.missing_skills),
+            "strengths": _safe_json_list(candidate.strengths),
+            "weaknesses": _safe_json_list(candidate.weaknesses),
+            "suggestions": _safe_json_list(candidate.suggestions),
+            "interview_questions": _safe_json_list(candidate.interview_questions),
             "resume_file": candidate.resume_file or "",
             "status": candidate.status or "Pending",
             "notes": candidate.notes or "",
@@ -578,10 +614,8 @@ async def download_excel(
                 "ats_score": candidate.ats_score or 0,
                 "jd_match_score": candidate.jd_match_score or 0,
                 "experience": candidate.experience or "",
-                "skills": json.loads(candidate.skills or "[]"),
-                "missing_skills": json.loads(
-                    candidate.missing_skills or "[]"
-                ),
+                "skills": _safe_json_list(candidate.skills),
+                "missing_skills": _safe_json_list(candidate.missing_skills),
                 "recommendation": candidate.recommendation or "",
             })
         excel_path = generate_excel(candidate_data)
@@ -598,8 +632,6 @@ async def download_excel(
 # ===========================
 # Get All Candidates
 # ===========================
-from sqlalchemy.orm import Session
-from src.database.database import SessionLocal
 @app.get("/candidates")
 async def get_candidates(
     current_recruiter: Recruiter = Depends(get_current_recruiter)
@@ -652,15 +684,13 @@ def get_candidate(
             "resume_file": candidate.resume_file,
             "status": candidate.status,
             "notes": candidate.notes,
-            "skills": json.loads(candidate.skills or "[]"),
-            "matched_skills": json.loads(candidate.matched_skills or "[]"),
-            "missing_skills": json.loads(candidate.missing_skills or "[]"),
-            "strengths": json.loads(candidate.strengths or "[]"),
-            "weaknesses": json.loads(candidate.weaknesses or "[]"),
-            "suggestions": json.loads(candidate.suggestions or "[]"),
-            "interview_questions": json.loads(
-                candidate.interview_questions or "[]"
-            )
+            "skills": _safe_json_list(candidate.skills),
+            "matched_skills": _safe_json_list(candidate.matched_skills),
+            "missing_skills": _safe_json_list(candidate.missing_skills),
+            "strengths": _safe_json_list(candidate.strengths),
+            "weaknesses": _safe_json_list(candidate.weaknesses),
+            "suggestions": _safe_json_list(candidate.suggestions),
+            "interview_questions": _safe_json_list(candidate.interview_questions)
         }
     finally:
         db.close()
@@ -686,7 +716,10 @@ def update_candidate_status(
                     status_code=404,
                     detail="Candidate not found"
                )
-            candidate.status = data.get("status")
+            status = data.get("status")
+            if not isinstance(status, str):
+                raise HTTPException(status_code=422, detail="Status must be a string")
+            setattr(candidate, "status", status)
             db.commit()
             db.refresh(candidate)
             return {
@@ -716,7 +749,10 @@ def toggle_favorite(
                 status_code=404,
                 detail="Candidate not found"
             )
-        candidate.favorite = 0 if candidate.favorite == 1 else 1
+
+        current_favorite = int(getattr(candidate, "favorite", 0) or 0)
+        setattr(candidate, "favorite", 0 if current_favorite == 1 else 1)
+
         db.commit()
         db.refresh(candidate)
         return {
@@ -885,7 +921,11 @@ def update_candidate_notes(
                 status_code=404,
                 detail="Candidate not found"
             )
-        candidate.notes = data.get("notes")
+
+        notes_value = data.get("notes")
+        updated_notes = notes_value if notes_value is not None else ""
+        setattr(candidate, "notes", updated_notes)
+
         db.commit()
         db.refresh(candidate)
         return {
@@ -944,7 +984,7 @@ def dashboard_stats(
 # ATS Score Distribution
 # ===========================
 @app.get("/ats-distribution")
-def ats_distribution(
+def get_ats_distribution_summary(
     current_recruiter: Recruiter = Depends(get_current_recruiter)
 ):
     db = SessionLocal()
@@ -962,7 +1002,7 @@ def ats_distribution(
             "Below 60": 0
         }
         for candidate in candidates:
-            score = candidate.ats_score or 0
+            score = _safe_float(candidate.ats_score)
             if score >= 90:
                 distribution["90-100"] += 1
             elif score >= 80:
@@ -980,7 +1020,7 @@ def ats_distribution(
 # ATS Distribution
 # ===========================
 @app.get("/analytics/ats-distribution")
-def ats_distribution(
+def get_ats_distribution_data(
     current_recruiter: Recruiter = Depends(get_current_recruiter)
 ):
     db = SessionLocal()
@@ -993,7 +1033,7 @@ def ats_distribution(
         return [
             {
                 "name": candidate.name,
-                "ats_score": candidate.ats_score
+                "ats_score": _safe_float(candidate.ats_score)
             }
             for candidate in candidates
         ]
@@ -1049,8 +1089,8 @@ def login_recruiter(login_data: RecruiterLogin):
         # Verify password
         if not verify_password(
             login_data.password,
-            recruiter.password
-       ):
+            str(recruiter.password)
+        ):
             raise HTTPException(
                 status_code=401,
                 detail="Invalid email or password"
@@ -1090,21 +1130,24 @@ def hiring_insights(
                 "best_candidate": "None",
                 "total_candidates": 0
             }
-        ats_scores = [c.ats_score for c in candidates]
+        scored_candidates = [
+            (candidate, _safe_float(candidate.ats_score))
+            for candidate in candidates
+        ]
+        ats_scores = [score for _, score in scored_candidates]
         average_ats = round(sum(ats_scores) / len(ats_scores), 2)
-        highest = max(candidates, key=lambda c: c.ats_score)
-        lowest = min(candidates, key=lambda c: c.ats_score)
-        interview_ready = len(
-            [
-                c
-                for c in candidates
-                if c.ats_score >= 80
-            ]
+        highest, highest_score = max(
+            scored_candidates, key=lambda item: item[1]
         )
+        lowest, lowest_score = min(
+            scored_candidates, key=lambda item: item[1]
+        )
+        interview_ready = sum(score >= 80 for score in ats_scores)
+
         return {
             "average_ats": average_ats,
-            "highest_ats": highest.ats_score,
-            "lowest_ats": lowest.ats_score,
+            "highest_ats": highest_score,
+            "lowest_ats": lowest_score,
             "interview_ready": interview_ready,
             "best_candidate": highest.name,
             "total_candidates": len(candidates)
@@ -1158,10 +1201,12 @@ def skills_analytics(
         missing_skill_counts = {}
 
         for candidate in candidates:
-            if candidate.matched_skills:
-                skills = json.loads(candidate.matched_skills or "[]")
-
+            skills = _safe_json_list(candidate.matched_skills)
+            if skills:
                 for skill in skills:
+                    if not isinstance(skill, str):
+                        continue
+
                     skill = skill.strip()
 
                     if skill:
@@ -1169,10 +1214,12 @@ def skills_analytics(
                             skill_counts.get(skill, 0) + 1
                         )
 
-            if candidate.missing_skills:
-                missing = json.loads(candidate.missing_skills or "[]")
-
+            missing = _safe_json_list(candidate.missing_skills)
+            if missing:
                 for skill in missing:
+                    if not isinstance(skill, str):
+                        continue
+
                     skill = skill.strip()
 
                     if skill:

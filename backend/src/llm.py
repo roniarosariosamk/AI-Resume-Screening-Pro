@@ -2,7 +2,6 @@ import os
 import json
 import re
 
-from click import prompt
 from dotenv import load_dotenv
 from google import genai
 
@@ -87,6 +86,15 @@ IMPORTANT:
 - Calculate jd_match_score based ONLY on how well the resume satisfies those requirements.
 - matched_skills must come from requirements explicitly present in the provided JD and supported by the resume.
 - missing_skills must come from important requirements explicitly present in the provided JD but not sufficiently demonstrated in the resume.
+
+EXPERIENCE CONSISTENCY RULES:
+
+- Calculate professional experience using employment dates provided in the resume.
+- Do not invent or assume employment duration.
+- Do not confuse total professional experience with experience at the current company.
+- Keep experience details consistent across summary, experience, strengths, and weaknesses.
+- Never state conflicting years of experience in different fields.
+- If employment dates are unclear, do not estimate total experience.
 
 Return:
 
@@ -211,6 +219,9 @@ Job Description:
         if response is None:
             raise Exception("Gemini failed after 5 attempts.")
 
+        if response.text is None:
+            raise Exception("Gemini returned an empty response.")
+
         text = response.text.strip()
 
         # Remove markdown if Gemini returns it
@@ -266,6 +277,31 @@ Job Description:
                 )
             except (TypeError, ValueError):
                 result[score_field] = 0
+
+        # Generate hiring recommendation using validated scores
+        ats_score = result["ats_score"]
+        jd_score = result["jd_match_score"]
+
+        if ats_score >= 80 and jd_score >= 80:
+            result["hiring_recommendation"] = "Hire"
+            result["recommendation_reason"] = (
+                "Strong resume quality and excellent alignment "
+                "with the job description."
+            )
+
+        elif ats_score >= 60 and jd_score >= 60:
+            result["hiring_recommendation"] = "Consider"
+            result["recommendation_reason"] = (
+                "The candidate meets several requirements but "
+                "has areas that need further evaluation."
+            )
+
+        else:
+            result["hiring_recommendation"] = "Reject"
+            result["recommendation_reason"] = (
+                "The candidate does not meet the minimum "
+                "resume quality and job matching thresholds."
+            )
 
         return result
 
