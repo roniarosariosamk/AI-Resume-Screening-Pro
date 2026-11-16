@@ -4,7 +4,7 @@ import shutil
 import hashlib
 from uuid import uuid4
 from pathlib import Path
-from typing import List
+from typing import Annotated, List
 from fastapi import Depends, File, FastAPI, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
@@ -106,8 +106,14 @@ def home():
 # ===========================
 @app.post("/upload")
 async def upload_resume(
-    resume: List[UploadFile] = File(...),
-    jd: UploadFile = File(...),
+    resume: Annotated[List[UploadFile], File(
+        ...,
+        description="Upload one or more PDF resumes"
+    )],
+    jd: Annotated[UploadFile, File(
+        ...,
+        description="Upload the job description PDF"
+    )],
     current_recruiter: Recruiter = Depends(get_current_recruiter)
 ):
     recruiter_id = int(getattr(current_recruiter, "id"))
