@@ -23,6 +23,7 @@ from src.email_service import send_interview_email
 from src.excel_generator import generate_excel
 from src.llm import analyze_resume
 from src.parser import extract_text
+from fastapi.openapi.utils import get_openapi
 from src.pdf_generator import generate_pdf
 from src.schemas import recruiter
 from src.schemas.recruiter import RecruiterLogin, RecruiterRegister
@@ -1305,3 +1306,42 @@ async def get_interviews(
         return result
     finally:
         db.close()
+
+# --------------------------------------------------
+# CUSTOM OPENAPI: FIX MULTIPLE FILE UPLOAD IN SWAGGER
+# --------------------------------------------------
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+
+    schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        routes=app.routes,
+    )
+
+    # Use OpenAPI 3.0.3 for Swagger file-upload compatibility
+    schema["openapi"] = "3.0.3"
+
+    def fix_file_schema(obj):
+        if isinstance(obj, dict):
+
+            if obj.get("contentMediaType") == "application/octet-stream":
+                obj.pop("contentMediaType", None)
+                obj["format"] = "binary"
+
+            for value in obj.values():
+                fix_file_schema(value)
+
+        elif isinstance(obj, list):
+            for item in obj:
+                fix_file_schema(item)
+
+    fix_file_schema(schema)
+
+    app.openapi_schema = schema
+    return app.openapi_schema
+
+
+app.openapi = custom_openapi
