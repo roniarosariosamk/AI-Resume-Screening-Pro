@@ -171,67 +171,48 @@ async def upload_resume(
     # -------------------------
     resume_paths = []
 
-    db = SessionLocal()
+    for file in resume:
 
-    try:
-        for file in resume:
+        # Read the complete PDF into memory
+        file.file.seek(0)
+        file_bytes = await file.read()
 
-            # Read the complete PDF into memory
-            file.file.seek(0)
-            file_bytes = await file.read()
+        # Generate SHA-256 hash
+        file_hash = hashlib.sha256(file_bytes).hexdigest()
 
-            # Generate SHA-256 hash from the actual PDF content
-            file_hash = hashlib.sha256(file_bytes).hexdigest()
+        print(f"🔐 Resume hash: {file_hash}")
 
-            print(f"🔐 Resume hash: {file_hash}")
+        # Keep original filename safe
+        original_filename = os.path.basename(
+            file.filename or "resume.pdf"
+        )
 
-            # Check whether this exact PDF was already uploaded
-            # by this recruiter.
-            existing_candidate = (
-                db.query(Candidate)
-                .filter(
-                    Candidate.recruiter_id == recruiter_id,
-                    Candidate.resume_file.like(f"sha256_{file_hash}_%")
-                )
-                .first()
-            )
+        # Generate a unique filename for every upload
+        safe_filename = (
+            f"sha256_{file_hash}_{uuid4()}_{original_filename}"
+        )
 
-            if existing_candidate:
-                raise HTTPException(
-                    status_code=409,
-                    detail=(
-                        f"This resume has already been uploaded: "
-                        f"{existing_candidate.name or file.filename}"
-                    )
-                )
+        file_path = os.path.join(
+            UPLOAD_FOLDER,
+            safe_filename
+        )
 
-            # Keep original filename safe
-            original_filename = os.path.basename(file.filename or "resume.pdf")
+        # Save locally
+        with open(file_path, "wb") as buffer:
+            buffer.write(file_bytes)
 
-            # Store hash + UUID + original filename
-            safe_filename = (
-                f"sha256_{file_hash}_{uuid4()}_{original_filename}"
-            )
+        resume_paths.append(file_path)
 
-            file_path = os.path.join(UPLOAD_FOLDER, safe_filename)
+        # Upload to Supabase
+        supabase.storage.from_(BUCKET_NAME).upload(
+            safe_filename,
+            file_bytes,
+            {"content-type": "application/pdf"}
+        )
 
-            # Save locally
-            with open(file_path, "wb") as buffer:
-                buffer.write(file_bytes)
+        print(f"☁️ Uploaded to Supabase: {safe_filename}")
 
-            resume_paths.append(file_path)
-
-            # Upload exact same bytes to Supabase
-            supabase.storage.from_(BUCKET_NAME).upload(
-                safe_filename,
-                file_bytes,
-                {"content-type": "application/pdf"}
-            )
-
-            print(f"☁️ Uploaded to Supabase: {safe_filename}")
-
-    finally:
-        db.close()
+    print("✅ All resumes uploaded successfully")
 
     # -------------------------
     # Save JD
