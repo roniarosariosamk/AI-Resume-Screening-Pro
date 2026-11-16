@@ -15,6 +15,8 @@ load_dotenv()
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_SECRET_KEY = os.getenv("SUPABASE_SECRET_KEY")
+print("SUPABASE_URL present:", bool(SUPABASE_URL))
+print("SUPABASE_SECRET_KEY present:", bool(SUPABASE_SECRET_KEY))
 
 if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
     raise ValueError("Supabase environment variables are missing")
